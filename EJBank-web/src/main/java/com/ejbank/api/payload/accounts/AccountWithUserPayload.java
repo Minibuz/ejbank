@@ -1,4 +1,6 @@
-package com.ejbank.api.payload;
+package com.ejbank.api.payload.accounts;
+
+import com.ejbank.api.payload.UserPayload;
 
 import java.math.BigDecimal;
 
@@ -12,7 +14,7 @@ public class AccountWithUserPayload {
         this.user = user;
     }
 
-    public Long getId_account() {
+    public int getId() {
         return account.getId();
     }
     public String getUser(){return user.toString();}

@@ -1,7 +1,5 @@
-package com.ejbank.api.payload;
+package com.ejbank.api.payload.accounts;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AccountsPayload {
