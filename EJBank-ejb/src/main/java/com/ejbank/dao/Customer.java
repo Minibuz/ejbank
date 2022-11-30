@@ -13,15 +13,15 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @OneToOne
+    private User user;
+
     @JoinColumn(name="advisor_id", nullable=false)
     @ManyToOne
     private Advisor advisor;
 
     @OneToMany(mappedBy = "customer")
     private Set<Account> accounts;
-
-    @OneToOne
-    private User user;
 
     public Customer() {
     }

@@ -13,7 +13,7 @@ public class Advisor implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToMany(mappedBy = "advisorId")
+    @OneToMany(mappedBy = "advisor")
     private Set<Customer> customers;
 
     @OneToOne
