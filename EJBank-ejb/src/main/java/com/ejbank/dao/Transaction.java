@@ -33,7 +33,7 @@ public class Transaction implements Serializable {
     private String comment;
 
     @Column(name="applied", nullable=false)
-    private Byte applied;
+    private Boolean applied;
 
     @Temporal(TemporalType.DATE)
     @Column(name="date", nullable=false)
@@ -78,10 +78,10 @@ public class Transaction implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    public Byte getApplied() {
+    public Boolean getApplied() {
         return applied;
     }
-    public void setApplied(Byte applied) {
+    public void setApplied(Boolean applied) {
         this.applied = applied;
     }
     public Date getDate() {

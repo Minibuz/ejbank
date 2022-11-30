@@ -34,24 +34,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "author")
     private Set<Transaction> transactions;
 
-    @OneToOne(mappedBy = "user")
-    private Advisor advisor;
-
-    @OneToOne(mappedBy = "user")
-    private Customer customer;
-
-    public User() {
-    }
-
-    public User(String login, String password, String email, String firstname, String lastname, String type) {
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.type = type;
-    }
-
     public Integer getId() {
         return id;
     }

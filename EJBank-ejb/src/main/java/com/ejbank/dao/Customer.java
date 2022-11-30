@@ -7,14 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ejbank_customer")
-public class Customer implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    @OneToOne
-    private User user;
+public class Customer extends User implements Serializable {
 
     @JoinColumn(name="advisor_id", nullable=false)
     @ManyToOne
@@ -23,37 +16,35 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "customer")
     private Set<Account> accounts;
 
-    public Customer() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
     public Advisor getAdvisor() {
         return advisor;
     }
     public void setAdvisor(Advisor advisor) {
-        this.advisor = this.advisor;
+        this.advisor = advisor;
+    }
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
     }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(advisor, customer.advisor);
+        return Objects.equals(advisor, customer.advisor) && Objects.equals(accounts, customer.accounts);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(id, advisor);
+        return Objects.hash(super.hashCode(), advisor, accounts);
     }
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
-                ", advisorId=" + advisor +
+                "advisor=" + advisor +
+                ", accounts=" + accounts +
                 '}';
     }
 }
