@@ -7,6 +7,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ejbank_user")
+@DiscriminatorValue(value = "none")
+@DiscriminatorColumn(name = "type")
 public class User implements Serializable {
 
     @Id

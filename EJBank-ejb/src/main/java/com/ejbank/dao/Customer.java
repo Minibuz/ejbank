@@ -7,6 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ejbank_customer")
+@DiscriminatorValue(value = "customer")
 public class Customer extends User implements Serializable {
 
     @JoinColumn(name="advisor_id", nullable=false)

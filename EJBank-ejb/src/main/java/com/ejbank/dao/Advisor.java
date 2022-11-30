@@ -7,6 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ejbank_advisor")
+@DiscriminatorValue(value = "customer")
 public class Advisor extends User implements Serializable {
 
     @OneToMany(mappedBy = "advisor")
