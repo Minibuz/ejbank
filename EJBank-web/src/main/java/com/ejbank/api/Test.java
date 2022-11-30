@@ -28,7 +28,7 @@ public class Test {
     @Path("/ejb")
     public PeoplePayload testEJB() {
         var user = userService.getUser(1);
-        return new PeoplePayload(user.getFirstname(), user.getLastname(), 0);
+        return new PeoplePayload(user.getFirstName(), user.getLastName(), 0);
     }
 
     @GET
