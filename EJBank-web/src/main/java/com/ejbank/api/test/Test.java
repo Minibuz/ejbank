@@ -1,8 +1,7 @@
 package com.ejbank.api.test;
 
 import com.ejbank.api.test.payload.PeoplePayload;
-import com.ejbank.service.UserServiceLocal;
-import com.ejbank.service.UserServiceLocal;
+import com.ejbank.service.user.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -27,9 +26,8 @@ public class Test {
     
     @GET
     @Path("/ejb")
-    public PeoplePayload testEJB() {
-        var user = userService.getUser(1);
-        return new PeoplePayload(user.getFirstname(), user.getLastname(), 0);
+    public String testEJB() {
+        return "Work";
     }
 
     @GET
