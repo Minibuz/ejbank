@@ -34,7 +34,7 @@ public class User implements Serializable {
     @Column(name="type", length=50, nullable=false)
     private String type;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private Set<Transaction> transactions;
 
     public User() {}

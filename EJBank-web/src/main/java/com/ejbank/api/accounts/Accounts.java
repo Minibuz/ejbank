@@ -4,6 +4,7 @@ package com.ejbank.api.accounts;
 
 import com.ejbank.api.accounts.payload.*;
 import com.ejbank.api.user.payload.UserPayload;
+import com.ejbank.service.user.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 
 import javax.ejb.EJB;
@@ -24,15 +25,26 @@ public class Accounts {
     @EJB
     private TestBeanLocal testBean;
 
+    @EJB
+    private UserServiceLocal userService;
+
     @GET
     @Path("/{user_id}")
-    public AccountsPayload GetAccounts(@PathParam("user_id") Long id) {
+    public AccountsPayload GetAccounts(@PathParam("user_id") Integer id) {
         //get information form Bean User
         //var result = AccountsBean.findAll(id);
-        var test = new AccountPayload(1_524, "courant",new BigDecimal(350));
-        var test2 = new AccountPayload(1_784,"Livret A",new BigDecimal(1352));
-        var result = new AccountsPayload(List.of(test,test2));
-        return result;
+//        var test = new AccountPayload(1_524, "courant",new BigDecimal(350));
+//        var test2 = new AccountPayload(1_784,"Livret A",new BigDecimal(1352));
+//        var result = new AccountsPayload(List.of(test,test2));
+//        return result;
+        var accountsDto = userService.getAccounts(id);
+        return new AccountsPayload(accountsDto.accounts()
+                            .stream()
+                            .map(accountDto ->
+                                    new AccountPayload(accountDto.getId(),
+                                            accountDto.getType(),
+                                            accountDto.getAmount()))
+                            .toList());
     }
 
     @GET

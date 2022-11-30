@@ -25,10 +25,10 @@ public class Account implements Serializable {
     @Column(name="balance", nullable=false)
     private BigDecimal balance;
 
-    @OneToMany(mappedBy = "accountFrom")
+    @OneToMany(mappedBy = "accountFrom", fetch = FetchType.LAZY)
     private Set<Transaction> transactionFrom;
 
-    @OneToMany(mappedBy = "accountTo")
+    @OneToMany(mappedBy = "accountTo", fetch = FetchType.LAZY)
     private Set<Transaction> transactionTo;
 
     public Account() {
