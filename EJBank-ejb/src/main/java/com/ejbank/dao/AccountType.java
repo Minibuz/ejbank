@@ -23,7 +23,7 @@ public class AccountType implements Serializable {
     @Column(name="overdraft", nullable=false)
     private Integer overdraft;
 
-    @OneToMany(mappedBy = "account_type_id")
+    @OneToMany(mappedBy = "accountType")
     private Set<Account> accounts;
 
     public AccountType() {

@@ -13,12 +13,16 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name="advisor_id", nullable=false)
-    //TODO : add foreign key
-    private Integer advisorId;
+    @JoinColumn(name="advisor_id", nullable=false)
+    @ManyToOne
+    private Advisor advisor;
 
-    @OneToMany(mappedBy = "customer_id")
+    @OneToMany(mappedBy = "customer")
     private Set<Account> accounts;
+
+    @JoinColumn
+    @ManyToOne
+    private User user;
 
     public Customer() {
     }
@@ -29,28 +33,28 @@ public class Customer implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    public Integer getAdvisorId() {
-        return advisorId;
+    public Advisor getAdvisor() {
+        return advisor;
     }
-    public void setAdvisorId(Integer advisorId) {
-        this.advisorId = advisorId;
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = this.advisor;
     }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(advisorId, customer.advisorId);
+        return Objects.equals(id, customer.id) && Objects.equals(advisor, customer.advisor);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(id, advisorId);
+        return Objects.hash(id, advisor);
     }
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", advisorId=" + advisorId +
+                ", advisorId=" + advisor +
                 '}';
     }
 }

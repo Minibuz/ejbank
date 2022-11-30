@@ -3,7 +3,6 @@ package com.ejbank.dao;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,17 +14,17 @@ public class Transaction implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name="account_id_from", nullable=false)
-    //TODO : add foreign key
-    private Integer accountIdFrom;
+    @JoinColumn(name="account_id_from", nullable=false)
+    @ManyToOne
+    private Account accountFrom;
 
-    @Column(name="account_id_to", nullable=false)
-    //TODO : add foreign key
-    private Integer accountIdTo;
+    @JoinColumn(name="account_id_to", nullable=false)
+    @ManyToOne
+    private Account accountTo;
 
-    @Column(name="author", nullable=false)
-    //TODO : add foreign key
-    private Integer author;
+    @JoinColumn(name="author", nullable=false)
+    @ManyToOne
+    private User author;
 
     @Column(name="amount", nullable=false)
     private BigDecimal amount;
@@ -49,22 +48,22 @@ public class Transaction implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    public Integer getAccountIdFrom() {
-        return accountIdFrom;
+    public Account getAccountFrom() {
+        return accountFrom;
     }
-    public void setAccountIdFrom(Integer account_id_from) {
-        this.accountIdFrom = account_id_from;
+    public void setAccountFrom(Account accountFrom) {
+        this.accountFrom = accountFrom;
     }
-    public Integer getAccountIdTo() {
-        return accountIdTo;
+    public Account getAccountTo() {
+        return accountTo;
     }
-    public void setAccountIdTo(Integer account_id_to) {
-        this.accountIdTo = account_id_to;
+    public void setAccountTo(Account accountTo) {
+        this.accountTo = accountTo;
     }
-    public Integer getAuthor() {
+    public User getAuthor() {
         return author;
     }
-    public void setAuthor(Integer author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
     public BigDecimal getAmount() {
@@ -96,18 +95,18 @@ public class Transaction implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return Objects.equals(id, that.id) && Objects.equals(accountIdFrom, that.accountIdFrom) && Objects.equals(accountIdTo, that.accountIdTo) && Objects.equals(author, that.author) && Objects.equals(amount, that.amount) && Objects.equals(comment, that.comment) && Objects.equals(applied, that.applied) && Objects.equals(date, that.date);
+        return Objects.equals(id, that.id) && Objects.equals(accountFrom, that.accountFrom) && Objects.equals(accountTo, that.accountTo) && Objects.equals(author, that.author) && Objects.equals(amount, that.amount) && Objects.equals(comment, that.comment) && Objects.equals(applied, that.applied) && Objects.equals(date, that.date);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(id, accountIdFrom, accountIdTo, author, amount, comment, applied, date);
+        return Objects.hash(id, accountFrom, accountTo, author, amount, comment, applied, date);
     }
     @Override
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", accountIdFrom=" + accountIdFrom +
-                ", accountIdTo=" + accountIdTo +
+                ", accountIdFrom=" + accountFrom +
+                ", accountIdTo=" + accountTo +
                 ", author=" + author +
                 ", amount=" + amount +
                 ", comment='" + comment + '\'' +

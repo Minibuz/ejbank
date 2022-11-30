@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "ejbank_account")
@@ -23,6 +24,12 @@ public class Account implements Serializable {
 
     @Column(name="balance", nullable=false)
     private BigDecimal balance;
+
+    @OneToMany(mappedBy = "accountFrom")
+    private Set<Transaction> transactionFrom;
+
+    @OneToMany(mappedBy = "accountTo")
+    private Set<Transaction> transactionTo;
 
     public Account() {
     }
