@@ -1,6 +1,7 @@
 package com.ejbank.api;
 
 import com.ejbank.api.payload.PeoplePayload;
+import com.ejbank.service.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -19,13 +20,17 @@ public class Test {
 
     @EJB
     private TestBeanLocal testBean;
+
+    @EJB
+    private UserServiceLocal userService;
     
     @GET
     @Path("/ejb")
-    public String testEJB() {
-        return testBean.test();
+    public PeoplePayload testEJB() {
+        var user = userService.getUser(1);
+        return new PeoplePayload(user.getFirstname(), user.getLastname(), 0);
     }
-    
+
     @GET
     @Path("/people/{age}")
     public PeoplePayload testPayloadReponse(@PathParam("age") Integer age) {
