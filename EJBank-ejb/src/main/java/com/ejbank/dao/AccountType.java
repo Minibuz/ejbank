@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "ejbank_account_type")
@@ -21,6 +22,9 @@ public class AccountType implements Serializable {
 
     @Column(name="overdraft", nullable=false)
     private Integer overdraft;
+
+    @OneToMany(mappedBy = "account_type_id")
+    private Set<Account> accounts;
 
     public AccountType() {
     }

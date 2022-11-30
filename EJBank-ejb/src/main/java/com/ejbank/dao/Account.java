@@ -13,13 +13,13 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "customer_id", nullable = false)
-    //TODO : add foreign key
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
-    @Column(name = "account_type_id", nullable = false)
-    //TODO : add foreign key
-    private Integer accountTypeId;
+    @ManyToOne
+    @JoinColumn(name = "account_type_id", nullable = false)
+    private AccountType accountType;
 
     @Column(name="balance", nullable=false)
     private BigDecimal balance;
@@ -33,17 +33,17 @@ public class Account implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    public Integer getUserId() {
-        return userId;
+    public Customer getCustomer() {
+        return customer;
     }
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
-    public Integer getAccountTypeId() {
-        return accountTypeId;
+    public AccountType getAccountType() {
+        return accountType;
     }
-    public void setAccountTypeId(Integer accountTypeId) {
-        this.accountTypeId = accountTypeId;
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
     }
     public BigDecimal getBalance() {
         return balance;
@@ -56,18 +56,18 @@ public class Account implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return Objects.equals(id, account.id) && Objects.equals(userId, account.userId) && Objects.equals(accountTypeId, account.accountTypeId) && Objects.equals(balance, account.balance);
+        return Objects.equals(id, account.id) && Objects.equals(customer, account.customer) && Objects.equals(accountType, account.accountType) && Objects.equals(balance, account.balance);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, accountTypeId, balance);
+        return Objects.hash(id, customer, accountType, balance);
     }
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", userId=" + userId +
-                ", accountTypeId=" + accountTypeId +
+                ", userId=" + customer +
+                ", accountTypeId=" + accountType +
                 ", balance=" + balance +
                 '}';
     }

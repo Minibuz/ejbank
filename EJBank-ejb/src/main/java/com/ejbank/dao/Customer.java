@@ -3,6 +3,7 @@ package com.ejbank.dao;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "ejbank_customer")
@@ -15,6 +16,9 @@ public class Customer implements Serializable {
     @Column(name="advisor_id", nullable=false)
     //TODO : add foreign key
     private Integer advisorId;
+
+    @OneToMany(mappedBy = "customer_id")
+    private Set<Account> accounts;
 
     public Customer() {
     }
