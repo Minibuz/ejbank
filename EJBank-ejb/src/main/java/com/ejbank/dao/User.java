@@ -9,6 +9,7 @@ import java.util.Set;
 @Table(name = "ejbank_user")
 @DiscriminatorValue(value = "none")
 @DiscriminatorColumn(name = "type")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User implements Serializable {
 
     @Id
