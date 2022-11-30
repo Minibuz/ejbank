@@ -34,11 +34,11 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "author")
     private Set<Transaction> transactions;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Advisor> advisors;
+    @OneToOne(mappedBy = "user")
+    private Advisor advisor;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Customer> customers;
+    @OneToOne(mappedBy = "user")
+    private Customer customer;
 
     public User() {
     }

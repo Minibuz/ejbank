@@ -20,8 +20,7 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "customer")
     private Set<Account> accounts;
 
-    @JoinColumn
-    @ManyToOne
+    @OneToOne
     private User user;
 
     public Customer() {

@@ -16,8 +16,7 @@ public class Advisor implements Serializable {
     @OneToMany(mappedBy = "advisorId")
     private Set<Customer> customers;
 
-    @JoinColumn
-    @ManyToOne
+    @OneToOne
     private User user;
 
     public Advisor() {
