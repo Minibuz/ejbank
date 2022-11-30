@@ -1,6 +1,7 @@
 package com.ejbank.service.user.impl;
 
 import com.ejbank.dao.User;
+import com.ejbank.dto.UserInfo;
 import com.ejbank.service.user.UserServiceLocal;
 
 import javax.ejb.LocalBean;
@@ -18,8 +19,9 @@ public class UserService implements UserServiceLocal, Serializable {
     private EntityManager em;
 
     @Override
-    public User getUser(Integer id) {
-        return em.find(User.class, id);
+    public UserInfo getUser(Integer id) {
+        var userDao = em.find(User.class, id);
+        return new UserInfo(userDao);
     }
 
     public void saveUser(User user) {
