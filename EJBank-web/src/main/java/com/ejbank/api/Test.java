@@ -1,6 +1,6 @@
 package com.ejbank.api;
 
-import com.ejbank.api.payload.PeoplePayload;
+import com.ejbank.api.payloadExample.PeoplePayload;
 import com.ejbank.service.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 import javax.ejb.EJB;
@@ -33,7 +33,7 @@ public class Test {
 
     @GET
     @Path("/people/{age}")
-    public PeoplePayload testPayloadReponse(@PathParam("age") Integer age) {
+    public PeoplePayload testPayloadResponse(@PathParam("age") Integer age) {
         return new PeoplePayload("Jean", "Dupont", age);
     }
     
