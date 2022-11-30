@@ -1,6 +1,4 @@
-package com.ejbank.api.payload.transaction;
-
-import java.math.BigDecimal;
+package com.ejbank.api.transaction.payload;
 
 public class TransactionValidationRequestPayload {
 
