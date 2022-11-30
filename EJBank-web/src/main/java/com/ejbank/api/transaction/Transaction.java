@@ -1,9 +1,7 @@
-package com.ejbank.api;
+package com.ejbank.api.transaction;
 
-import com.ejbank.api.payload.AccountInfoPayload;
-import com.ejbank.api.payload.UserPayload;
-import com.ejbank.api.payload.transaction.*;
-import com.ejbank.api.payloadExample.PeoplePayload;
+
+import com.ejbank.api.transaction.payload.*;
 import com.ejbank.test.TestBeanLocal;
 
 import javax.ejb.EJB;

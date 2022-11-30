@@ -1,4 +1,4 @@
-package com.ejbank.api.payload.transaction;
+package com.ejbank.api.transaction.payload;
 
 import java.math.BigDecimal;
 

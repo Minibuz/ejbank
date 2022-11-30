@@ -1,8 +1,8 @@
-package com.ejbank.api;
+package com.ejbank.api.account;
 
-import com.ejbank.api.payload.AccountInfoPayload;
-import com.ejbank.api.payload.UserPayload;
-import com.ejbank.api.payload.accounts.*;
+
+import com.ejbank.api.account.payload.AccountInfoPayload;
+import com.ejbank.api.user.payload.UserPayload;
 import com.ejbank.test.TestBeanLocal;
 
 import javax.ejb.EJB;
@@ -13,7 +13,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Path("/account")
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,7 +24,7 @@ public class Account {
 
     @GET
     @Path("/{account_id}/{user_id}")
-    public AccountInfoPayload GetAccounts(@PathParam("account_id") int account_id,@PathParam("user_id") int user_id) {
+    public AccountInfoPayload GetAccounts(@PathParam("account_id") int account_id, @PathParam("user_id") int user_id) {
         //get information form Bean --
         //var result = Bean ----
         var owner = new UserPayload("Max", "Dum");

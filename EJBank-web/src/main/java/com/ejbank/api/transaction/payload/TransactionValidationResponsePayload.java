@@ -1,15 +1,13 @@
-package com.ejbank.api.payload.transaction;
+package com.ejbank.api.transaction.payload;
 
-import java.math.BigDecimal;
-
-public class TransactionApplyResponsePayload {
+public class TransactionValidationResponsePayload {
 
     private final boolean result;
     private final String message;
 
 
 
-    public TransactionApplyResponsePayload(boolean result,String message) {
+    public TransactionValidationResponsePayload(boolean result, String message) {
         this.result =result;
 
         this.message=message;
