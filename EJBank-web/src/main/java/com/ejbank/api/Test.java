@@ -1,7 +1,7 @@
 package com.ejbank.api;
 
 import com.ejbank.api.payloadExample.PeoplePayload;
-import com.ejbank.service.UserServiceLocal;
+import com.ejbank.service.user.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;

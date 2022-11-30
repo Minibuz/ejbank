@@ -1,4 +1,4 @@
-package com.ejbank.service;
+package com.ejbank.service.user;
 
 import com.ejbank.dao.User;
 

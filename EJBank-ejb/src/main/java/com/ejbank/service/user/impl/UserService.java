@@ -1,12 +1,10 @@
-package com.ejbank.service.impl;
+package com.ejbank.service.user.impl;
 
 import com.ejbank.dao.User;
-import com.ejbank.service.UserServiceLocal;
+import com.ejbank.service.user.UserServiceLocal;
 
-import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
