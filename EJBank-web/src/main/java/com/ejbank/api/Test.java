@@ -1,0 +1,46 @@
+package com.ejbank.api;
+
+import com.ejbank.api.payloadExample.PeoplePayload;
+import com.ejbank.service.UserServiceLocal;
+import com.ejbank.test.TestBeanLocal;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/test")
+@Produces(MediaType.APPLICATION_JSON)
+@RequestScoped
+public class Test {
+
+    @EJB
+    private TestBeanLocal testBean;
+
+    @EJB
+    private UserServiceLocal userService;
+    
+    @GET
+    @Path("/ejb")
+    public PeoplePayload testEJB() {
+        var user = userService.getUser(1);
+        return new PeoplePayload(user.getFirstname(), user.getLastname(), 0);
+    }
+
+    @GET
+    @Path("/people/{age}")
+    public PeoplePayload testPayloadResponse(@PathParam("age") Integer age) {
+        return new PeoplePayload("Jean", "Dupont", age);
+    }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/post")
+    public String testPostRequest(PeoplePayload payload) {
+        return String.format("%s - %s", payload.getFirstname(), payload.getLastname());
+    }
+}

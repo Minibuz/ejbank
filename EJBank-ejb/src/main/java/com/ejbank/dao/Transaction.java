@@ -35,7 +35,7 @@ public class Transaction implements Serializable {
     @Column(name="applied", nullable=false)
     private Boolean applied;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="date", nullable=false)
     private Date date;
 
