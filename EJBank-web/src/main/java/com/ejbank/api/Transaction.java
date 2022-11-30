@@ -55,11 +55,24 @@ public class Transaction {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/validation/notification/{user_id}")
-
     public int GetAccounts(@PathParam("user_id") int id) {
         //get information form Bean --
         //var result = Bean ----
         return 3;
     }
+
+
+
+    @GET
+
+    @Path("/{account_id}/{offset}/{user_id}")
+    public int allTransactionFromUser(@PathParam("account_id") int account_id,@PathParam("offset") int offset ,@PathParam("user_id") int user_id) {
+        //get information form Bean --
+        //var result = Bean ----
+        var result = new TransactionValidationResponsePayload(true,"Retour du serveur");
+        return 3;
+    }
+
+
 
 }
