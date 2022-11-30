@@ -1,6 +1,7 @@
-package com.ejbank.api;
+package com.ejbank.api.test;
 
-import com.ejbank.api.payloadExample.PeoplePayload;
+import com.ejbank.api.test.payload.PeoplePayload;
+import com.ejbank.service.UserServiceLocal;
 import com.ejbank.service.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 import javax.ejb.EJB;

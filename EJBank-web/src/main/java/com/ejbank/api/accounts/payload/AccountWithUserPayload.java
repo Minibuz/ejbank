@@ -1,6 +1,8 @@
-package com.ejbank.api.payload.accounts;
+package com.ejbank.api.accounts.payload;
 
-import com.ejbank.api.payload.UserPayload;
+
+
+import com.ejbank.api.user.payload.UserPayload;
 
 import java.math.BigDecimal;
 

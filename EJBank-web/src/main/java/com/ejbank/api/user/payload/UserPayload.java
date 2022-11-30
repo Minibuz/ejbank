@@ -1,15 +1,14 @@
-package com.ejbank.api.payloadExample;
+package com.ejbank.api.user.payload;
 
-public class PeoplePayload {
-    
+public class UserPayload {
+
     private final String firstname;
     private final String lastname;
-    private final Integer age;
 
-    public PeoplePayload(String firstname, String lastname, Integer age) {
+
+    public UserPayload(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.age = age;
     }
 
     public String getFirstname() {
@@ -20,7 +19,8 @@ public class PeoplePayload {
         return lastname;
     }
 
-    public Integer getAge() {
-        return age;
+    @Override
+    public String toString() {
+        return lastname+" "+firstname;
     }
 }
