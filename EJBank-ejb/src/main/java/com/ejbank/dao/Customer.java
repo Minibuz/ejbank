@@ -14,7 +14,7 @@ public class Customer extends User implements Serializable {
     @ManyToOne
     private Advisor advisor;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Account> accounts;
 
     public Advisor getAdvisor() {
