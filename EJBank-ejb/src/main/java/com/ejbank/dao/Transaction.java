@@ -15,15 +15,15 @@ public class Transaction implements Serializable {
     private Integer id;
 
     @JoinColumn(name="account_id_from", nullable=false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account accountFrom;
 
     @JoinColumn(name="account_id_to", nullable=false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account accountTo;
 
     @JoinColumn(name="author", nullable=false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User author;
 
     @Column(name="amount", nullable=false)
@@ -90,17 +90,7 @@ public class Transaction implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Transaction that = (Transaction) o;
-        return Objects.equals(id, that.id) && Objects.equals(accountFrom, that.accountFrom) && Objects.equals(accountTo, that.accountTo) && Objects.equals(author, that.author) && Objects.equals(amount, that.amount) && Objects.equals(comment, that.comment) && Objects.equals(applied, that.applied) && Objects.equals(date, that.date);
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, accountFrom, accountTo, author, amount, comment, applied, date);
-    }
+
     @Override
     public String toString() {
         return "Transaction{" +

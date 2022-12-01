@@ -31,13 +31,8 @@ public class Accounts {
     @GET
     @Path("/{user_id}")
     public AccountsPayload GetAccounts(@PathParam("user_id") Integer id) {
-        //get information form Bean User
-        //var result = AccountsBean.findAll(id);
-//        var test = new AccountPayload(1_524, "courant",new BigDecimal(350));
-//        var test2 = new AccountPayload(1_784,"Livret A",new BigDecimal(1352));
-//        var result = new AccountsPayload(List.of(test,test2));
-//        return result;
         var accountsDto = userService.getAccounts(id);
+        // TODO : Clean builder for AccountsPayload from AccountsDto
         return new AccountsPayload(accountsDto.accounts()
                             .stream()
                             .map(accountDto ->
@@ -45,6 +40,7 @@ public class Accounts {
                                             accountDto.getType(),
                                             accountDto.getAmount()))
                             .toList());
+        // TODO : Add error to payload
     }
 
     @GET
