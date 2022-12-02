@@ -23,7 +23,7 @@ public class AccountType implements Serializable {
     @Column(name="overdraft", nullable=false)
     private Integer overdraft;
 
-    @OneToMany(mappedBy = "accountType")
+    @OneToMany(mappedBy = "accountType", fetch = FetchType.LAZY)
     private Set<Account> accounts;
 
     public AccountType() {
@@ -53,17 +53,13 @@ public class AccountType implements Serializable {
     public void setOverdraft(Integer overdraft) {
         this.overdraft = overdraft;
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AccountType that = (AccountType) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(rate, that.rate) && Objects.equals(overdraft, that.overdraft);
+    public Set<Account> getAccounts() {
+        return accounts;
     }
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, rate, overdraft);
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
     }
+
     @Override
     public String toString() {
         return "AccountType{" +

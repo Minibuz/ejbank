@@ -8,7 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name = "ejbank_user")
 @DiscriminatorValue(value = "none")
-@DiscriminatorColumn(name = "type")
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "type")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements Serializable {
 
@@ -90,17 +90,13 @@ public class User implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(firstname, user.firstname) && Objects.equals(lastname, user.lastname) && Objects.equals(type, user.type);
+    public Set<Transaction> getTransactions() {
+        return transactions;
     }
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, login, password, email, firstname, lastname, type);
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
+
     @Override
     public String toString() {
         return "User{" +
