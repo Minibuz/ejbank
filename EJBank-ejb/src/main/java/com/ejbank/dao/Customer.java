@@ -17,6 +17,9 @@ public class Customer extends User implements Serializable {
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private Set<Account> accounts;
 
+    public Customer() {
+    }
+
     public Advisor getAdvisor() {
         return advisor;
     }
