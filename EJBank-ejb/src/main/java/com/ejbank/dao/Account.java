@@ -14,11 +14,11 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_type_id", nullable = false)
     private AccountType accountType;
 
@@ -58,17 +58,20 @@ public class Account implements Serializable {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Account account = (Account) o;
-        return Objects.equals(id, account.id) && Objects.equals(customer, account.customer) && Objects.equals(accountType, account.accountType) && Objects.equals(balance, account.balance);
+
+    public Set<Transaction> getTransactionFrom() {
+        return transactionFrom;
     }
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, customer, accountType, balance);
+    public void setTransactionFrom(Set<Transaction> transactionFrom) {
+        this.transactionFrom = transactionFrom;
     }
+    public Set<Transaction> getTransactionTo() {
+        return transactionTo;
+    }
+    public void setTransactionTo(Set<Transaction> transactionTo) {
+        this.transactionTo = transactionTo;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
