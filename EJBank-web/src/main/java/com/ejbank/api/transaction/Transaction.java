@@ -2,6 +2,7 @@ package com.ejbank.api.transaction;
 
 
 import com.ejbank.api.transaction.payload.*;
+import com.ejbank.service.user.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 
 import javax.ejb.EJB;
@@ -17,6 +18,9 @@ public class Transaction {
 
     @EJB
     private TestBeanLocal testBean;
+
+    @EJB
+    private UserServiceLocal userService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -54,9 +58,7 @@ public class Transaction {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/validation/notification/{user_id}")
     public int GetAccounts(@PathParam("user_id") int id) {
-        //get information form Bean --
-        //var result = Bean ----
-        return 3;
+        return userService.getNotificationCount(id);
     }
 
 

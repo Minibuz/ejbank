@@ -37,7 +37,8 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private Set<Transaction> transactions;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String login, String password, String email, String firstname, String lastname, String type) {
         this.login = login;

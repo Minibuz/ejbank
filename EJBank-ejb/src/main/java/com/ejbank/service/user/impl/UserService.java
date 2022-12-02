@@ -39,4 +39,13 @@ public class UserService implements UserServiceLocal, Serializable {
         }
         return new AccountsDto(List.of(), "That user is not a customer.");
     }
+
+    @Override
+    public Integer getNotificationCount(Integer id) {
+        var userDao = em.find(User.class, id);
+        return userDao.getTransactions()
+                .stream()
+                .filter(transaction -> !transaction.getApplied())
+                .toList().size();
+    }
 }
