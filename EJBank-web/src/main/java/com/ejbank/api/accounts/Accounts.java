@@ -4,6 +4,7 @@ package com.ejbank.api.accounts;
 
 import com.ejbank.api.accounts.payload.*;
 import com.ejbank.api.user.payload.UserPayload;
+import com.ejbank.dto.AccountsWithUserDto;
 import com.ejbank.service.user.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 
@@ -45,16 +46,24 @@ public class Accounts {
 
     @GET
     @Path("/all/{user_id}")
-    public AccountsWithUserPayload GetAllAccounts(@PathParam("user_id") Long id) {
+    public AccountsWithUserPayload GetAllAccounts(@PathParam("user_id") Integer id) {
         //get information form Bean User
         //var result = AccountsBean.findAll(id);
-        var user = new UserPayload("Max","Dum");
-        var test = new AccountPayload(1_524, "courant",new BigDecimal(350));
-        var test2 = new AccountPayload(1_784,"Livret A",new BigDecimal(-1352));
-        var account1 = new AccountWithUserPayload(test,user);
-        var account2 = new AccountWithUserPayload(test2,user);
-        var result = new AccountsWithUserPayload(List.of(account1,account2));
-        return result;
+        // TODO : Clean builder for AccountsWithUserPayload from AccountsDto
+        // Look if we need first and last or just first ?
+        var accountsWithUser = userService.getAccountsWithUser(id);
+        return new AccountsWithUserPayload(accountsWithUser.accounts()
+                            .stream()
+                            .map(accountWithUser ->
+                                    new AccountWithUserPayload(
+                                            new AccountPayload(
+                                                    accountWithUser.getId(),
+                                                    accountWithUser.getType(),
+                                                    accountWithUser.getAmount()
+                                            ),
+                                            new UserPayload(accountWithUser.getFirstName(), "")
+                                    )).toList());
+        // TODO : Add error to payload
     }
 
     @GET
