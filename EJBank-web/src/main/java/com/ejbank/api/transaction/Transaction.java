@@ -2,6 +2,7 @@ package com.ejbank.api.transaction;
 
 
 import com.ejbank.api.transaction.payload.*;
+import com.ejbank.service.account.AccountServiceLocal;
 import com.ejbank.service.user.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 
@@ -22,14 +23,22 @@ public class Transaction {
     @EJB
     private UserServiceLocal userService;
 
+    @EJB
+    private AccountServiceLocal accountService;
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/preview")
     public TransactionPreviewResponsePayload previewPostRequest(TransactionPreviewRequestPayload payload) {
         //do something with the Bean
         //result
-        var result = new TransactionPreviewResponsePayload(true,new BigDecimal(350),new BigDecimal(320),"HELLO API");
-        return result;
+        var previewDto = accountService.checkValidity(payload.getSource(), payload.getDestination(), payload.getAmount());
+        return new TransactionPreviewResponsePayload(
+                previewDto.result(),
+                previewDto.accountSender(),
+                previewDto.accountReceiver(),
+                previewDto.message()
+        );
     }
 
     @POST
