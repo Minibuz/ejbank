@@ -46,9 +46,14 @@ public class Transaction {
     @Path("/apply")
     public TransactionApplyResponsePayload applyPostRequest(TransactionApplyRequestPayload payload) {
         //do something with the Bean
-        //result
-        var result = new TransactionApplyResponsePayload(true,"Apply is Working !!! NICE");
-        return result;
+        //resul
+        var transactionApply = accountService.applyTransaction(
+                payload.getAuthor(),
+                payload.getSource(),
+                payload.getDestination(),
+                payload.getAmount(),
+                payload.getMessage());
+        return new TransactionApplyResponsePayload(transactionApply.result(), transactionApply.message());
     }
 
     @POST
