@@ -34,13 +34,14 @@ public class Accounts {
     public AccountsPayload GetAccounts(@PathParam("user_id") Integer id) {
         var accountsDto = userService.getAccounts(id);
         // TODO : Clean builder for AccountsPayload from AccountsDto
-        return new AccountsPayload(accountsDto.accounts()
-                            .stream()
-                            .map(accountDto ->
-                                    new AccountPayload(accountDto.getId(),
-                                            accountDto.getType(),
-                                            accountDto.getAmount()))
-                            .toList());
+//        return new AccountsPayload(accountsDto.accounts()
+//                            .stream()
+//                            .map(accountDto ->
+//                                    new AccountPayload(accountDto.getId(),
+//                                            accountDto.getType(),
+//                                            accountDto.getAmount()))
+//                            .toList());
+        return AccountsPayload.AccountsFromDTO(accountsDto.accounts(), accountsDto.error());
         // TODO : Add error to payload
     }
 
@@ -49,35 +50,35 @@ public class Accounts {
     public AccountsWithUserPayload GetAllAccounts(@PathParam("user_id") Integer id) {
         //get information form Bean User
         //var result = AccountsBean.findAll(id);
-        // TODO : Clean builder for AccountsWithUserPayload from AccountsDto
         // Look if we need first and last or just first ?
         var accountsWithUser = userService.getAccountsWithUser(id);
-        return new AccountsWithUserPayload(accountsWithUser.accounts()
-                            .stream()
-                            .map(accountWithUser ->
-                                    new AccountWithUserPayload(
-                                            new AccountPayload(
-                                                    accountWithUser.getId(),
-                                                    accountWithUser.getType(),
-                                                    accountWithUser.getAmount()
-                                            ),
-                                            new UserPayload(accountWithUser.getFirstName(), "")
-                                    )).toList());
-        // TODO : Add error to payload
+//        return new AccountsWithUserPayload(accountsWithUser.accounts()
+//                            .stream()
+//                            .map(accountWithUser ->
+//                                    new AccountWithUserPayload(
+//                                            new AccountPayload(
+//                                                    accountWithUser.getId(),
+//                                                    accountWithUser.getType(),
+//                                                    accountWithUser.getAmount()
+//                                            ),
+//                                            new UserPayload(accountWithUser.getFirstName(), "")
+//                                    )).toList());
+        return AccountsWithUserPayload.AccountsWithUserFromDTO(accountsWithUser.accounts(),accountsWithUser.error());
+
     }
 
-    @GET
-    @Path("/attached/{user_id}")
-    public AccountsAttachedPayload GetAttachedAccounts(@PathParam("user_id") Long id) {
-        //get information form Bean User
-        //var result = AccountsBean.findAll(id);
-        var user = new UserPayload("Max","Dum");
-        var test = new AccountPayload(1_524, "courant",new BigDecimal(350));
-        var test2 = new AccountPayload(1_784,"Livret A",new BigDecimal(-1352));
-        var account1 = new AccountAttachedPayload(new AccountWithUserPayload(test,user),0);
-        var account2 = new AccountAttachedPayload(new AccountWithUserPayload(test2,user),2);
-        var result = new AccountsAttachedPayload(List.of(account1,account2));
-        return result;
-    }
+//    @GET
+//    @Path("/attached/{user_id}")
+//    public AccountsAttachedPayload GetAttachedAccounts(@PathParam("user_id") Long id) {
+//        //get information form Bean User
+//        //var result = AccountsBean.findAll(id);
+////        var user = new UserPayload("Max","Dum");
+////        var test = new AccountPayload(1_524, "courant",new BigDecimal(350));
+////        var test2 = new AccountPayload(1_784,"Livret A",new BigDecimal(-1352));
+////        var account1 = new AccountAttachedPayload(new AccountWithUserPayload(test,user),0);
+////        var account2 = new AccountAttachedPayload(new AccountWithUserPayload(test2,user),2);
+////        var result = new AccountsAttachedPayload(List.of(account1,account2));
+////        return result;
+//    }
 
 }
