@@ -16,17 +16,11 @@ import javax.ws.rs.core.MediaType;
 public class User {
 
     @EJB
-    private TestBeanLocal testBean;
-
-    @EJB
     private UserServiceLocal userService;
 
     @GET
     @Path("/{user_id}")
     public UserPayload UserPayloadReponse(@PathParam("user_id") Integer id) {
-        //get information form Bean User
-        //var result = UserBean.find(id)
-
         var userInfo = userService.getUser(id);
         return new UserPayload(userInfo.getFirstName(), userInfo.getLastName());
     }

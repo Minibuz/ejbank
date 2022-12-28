@@ -42,6 +42,16 @@ public class Transaction implements Serializable {
     public Transaction() {
     }
 
+    public Transaction(Account accountFrom, Account accountTo, User author, BigDecimal amount, String comment, Boolean applied, Date date) {
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
+        this.author = author;
+        this.amount = amount;
+        this.comment = comment;
+        this.applied = applied;
+        this.date = date;
+    }
+
     public Integer getId() {
         return id;
     }

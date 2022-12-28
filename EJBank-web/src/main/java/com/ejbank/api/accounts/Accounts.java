@@ -69,6 +69,7 @@ public class Accounts {
     @GET
     @Path("/attached/{user_id}")
     public AccountsAttachedPayload GetAttachedAccounts(@PathParam("user_id") Long id) {
+        // TODO : Finish that
         //get information form Bean User
         //var result = AccountsBean.findAll(id);
         var user = new UserPayload("Max","Dum");
@@ -78,6 +79,8 @@ public class Accounts {
         var account2 = new AccountAttachedPayload(new AccountWithUserPayload(test2,user),2);
         var result = new AccountsAttachedPayload(List.of(account1,account2));
         return result;
+
+        // Either client or advisor
     }
 
 }

@@ -34,6 +34,14 @@ public class Account implements Serializable {
     public Account() {
     }
 
+    public Account(Customer customer, AccountType accountType, BigDecimal balance, Set<Transaction> transactionFrom, Set<Transaction> transactionTo) {
+        this.customer = customer;
+        this.accountType = accountType;
+        this.balance = balance;
+        this.transactionFrom = transactionFrom;
+        this.transactionTo = transactionTo;
+    }
+
     public Integer getId() {
         return id;
     }

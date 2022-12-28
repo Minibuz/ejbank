@@ -18,9 +18,6 @@ import java.math.BigDecimal;
 public class Transaction {
 
     @EJB
-    private TestBeanLocal testBean;
-
-    @EJB
     private UserServiceLocal userService;
 
     @EJB
@@ -30,8 +27,6 @@ public class Transaction {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/preview")
     public TransactionPreviewResponsePayload previewPostRequest(TransactionPreviewRequestPayload payload) {
-        //do something with the Bean
-        //result
         var previewDto = accountService.checkValidity(payload.getSource(), payload.getDestination(), payload.getAmount());
         return new TransactionPreviewResponsePayload(
                 previewDto.result(),
@@ -45,8 +40,6 @@ public class Transaction {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/apply")
     public TransactionApplyResponsePayload applyPostRequest(TransactionApplyRequestPayload payload) {
-        //do something with the Bean
-        //resul
         var transactionApply = accountService.applyTransaction(
                 payload.getAuthor(),
                 payload.getSource(),
@@ -60,8 +53,7 @@ public class Transaction {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/validation")
     public TransactionValidationResponsePayload validationPostRequest(TransactionValidationRequestPayload payload) {
-        //do something with the Bean
-        //result
+        // TODO
         var result = new TransactionValidationResponsePayload(true,"Retour du serveur");
         return result;
     }
@@ -78,15 +70,10 @@ public class Transaction {
 
 
     @GET
-
-    @Path("/{account_id}/{offset}/{user_id}")
+    @Path("/list/{account_id}/{offset}/{user_id}")
     public int allTransactionFromUser(@PathParam("account_id") int account_id,@PathParam("offset") int offset ,@PathParam("user_id") int user_id) {
-        //get information form Bean --
-        //var result = Bean ----
+        // TODO
         var result = new TransactionValidationResponsePayload(true,"Retour du serveur");
         return 3;
     }
-
-
-
 }

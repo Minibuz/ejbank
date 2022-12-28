@@ -1,9 +1,6 @@
 package com.ejbank.service.user.impl;
 
-import com.ejbank.dao.AccountType;
-import com.ejbank.dao.Advisor;
-import com.ejbank.dao.Customer;
-import com.ejbank.dao.User;
+import com.ejbank.dao.*;
 import com.ejbank.dto.*;
 import com.ejbank.service.user.UserServiceLocal;
 
@@ -11,6 +8,8 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,10 +51,28 @@ public class UserService implements UserServiceLocal, Serializable {
     @Override
     public Integer getNotificationCount(Integer id) {
         var userDao = em.find(User.class, id);
-        return userDao.getTransactions()
-                .stream()
-                .filter(transaction -> !transaction.getApplied())
-                .toList().size();
+
+        Query qry = null;
+        if( userDao instanceof Customer customer ) {
+            qry = em.createQuery("SELECT count(trsf)+count(trst) FROM Customer cst " +
+                    "JOIN cst.accounts acts " +
+                    "JOIN acts.transactionFrom trsf " +
+                    "JOIN acts.transactionTo trst " +
+                    "WHERE cst.id = :id " +
+                    "AND trsf.applied = false OR trst.applied = false");
+        } else if ( userDao instanceof Advisor advisor ) {
+            qry = em.createQuery("SELECT count(trsf)+count(trst) FROM Advisor adv " +
+                    "JOIN adv.customers csts " +
+                    "JOIN csts.accounts acts " +
+                    "JOIN acts.transactionFrom trsf " +
+                    "JOIN acts.transactionTo trst " +
+                    "WHERE adv.id = :id " +
+                    "AND trsf.applied = false OR trst.applied = false");
+        } else {
+            throw new IllegalArgumentException();
+        }
+        qry.setParameter("id", id);
+        return (Integer) qry.getSingleResult();
     }
 
     @Override
@@ -77,5 +94,34 @@ public class UserService implements UserServiceLocal, Serializable {
         var accounts = customer.getAccounts();
         var name = customer.getFirstname();
         return accounts.stream().map(account -> new AccountWithUserDto(account.getId(), name, account.getAccountType().getName(), account.getBalance())).toList();
+    }
+
+    @Override
+    public AccountsWithInfoDto getAccountsAttached(Integer id) {
+        var userDao = em.find(User.class, id);
+        List<AccountWithInfoDto> accountsWithUser = new ArrayList<>();
+        if ( userDao instanceof Customer customer ) {
+            accountsWithUser.addAll(getAccountWithInfo(customer));
+        }
+        if( userDao instanceof Advisor advisor ) {
+            var customers = advisor.getCustomers();
+            accountsWithUser.addAll(customers.stream().flatMap(customer ->
+                    getAccountWithInfo(customer).stream()).toList());
+        }
+        return new AccountsWithInfoDto(accountsWithUser, "");
+    }
+
+    private List<AccountWithInfoDto> getAccountWithInfo(Customer customer) {
+        var accounts = customer.getAccounts();
+        var name = customer.getFirstname();
+        //
+        Query qry = em.createQuery("SELECT count(trsf)+count(trst) FROM Customer cst " +
+                "JOIN cst.accounts acts " +
+                "JOIN acts.transactionFrom trsf " +
+                "JOIN acts.transactionTo trst " +
+                "WHERE cst.id = :id " +
+                "AND trsf.applied = false OR trst.applied = false");
+        Integer toValidate = (Integer) qry.setParameter("id", customer.getId()).getSingleResult();
+        return accounts.stream().map(account -> new AccountWithInfoDto(account.getId(), name, account.getAccountType().getName(), account.getBalance(), toValidate)).toList();
     }
 }
