@@ -14,7 +14,7 @@ public interface UserServiceLocal {
 
     AccountsDto getAccounts(Integer id);
 
-    Integer getNotificationCount(Integer id);
+    Long getNotificationCount(Integer id);
 
     AccountsWithUserDto getAccountsWithUser(Integer id);
 

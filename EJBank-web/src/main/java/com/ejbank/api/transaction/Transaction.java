@@ -64,7 +64,7 @@ public class Transaction {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/validation/notification/{user_id}")
     public int GetAccounts(@PathParam("user_id") int id) {
-        return userService.getNotificationCount(id);
+        return userService.getNotificationCount(id).intValue();
     }
 
 

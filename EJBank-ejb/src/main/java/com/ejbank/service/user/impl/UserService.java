@@ -49,7 +49,7 @@ public class UserService implements UserServiceLocal, Serializable {
     }
 
     @Override
-    public Integer getNotificationCount(Integer id) {
+    public Long getNotificationCount(Integer id) {
         var userDao = em.find(User.class, id);
 
         Query qry = null;
@@ -72,7 +72,7 @@ public class UserService implements UserServiceLocal, Serializable {
             throw new IllegalArgumentException();
         }
         qry.setParameter("id", id);
-        return (Integer) qry.getSingleResult();
+        return (Long) qry.getSingleResult();
     }
 
     @Override
@@ -121,7 +121,7 @@ public class UserService implements UserServiceLocal, Serializable {
                 "JOIN acts.transactionTo trst " +
                 "WHERE cst.id = :id " +
                 "AND trsf.applied = false OR trst.applied = false");
-        Integer toValidate = (Integer) qry.setParameter("id", customer.getId()).getSingleResult();
-        return accounts.stream().map(account -> new AccountWithInfoDto(account.getId(), name, account.getAccountType().getName(), account.getBalance(), toValidate)).toList();
+        Long toValidate = (Long) qry.setParameter("id", customer.getId()).getSingleResult();
+        return accounts.stream().map(account -> new AccountWithInfoDto(account.getId(), name, account.getAccountType().getName(), account.getBalance(), toValidate.intValue())).toList();
     }
 }

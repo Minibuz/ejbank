@@ -68,19 +68,26 @@ public class Accounts {
 
     @GET
     @Path("/attached/{user_id}")
-    public AccountsAttachedPayload GetAttachedAccounts(@PathParam("user_id") Long id) {
+    public AccountsAttachedPayload GetAttachedAccounts(@PathParam("user_id") Integer id) {
         // TODO : Finish that
         //get information form Bean User
         //var result = AccountsBean.findAll(id);
-        var user = new UserPayload("Max","Dum");
-        var test = new AccountPayload(1_524, "courant",new BigDecimal(350));
-        var test2 = new AccountPayload(1_784,"Livret A",new BigDecimal(-1352));
-        var account1 = new AccountAttachedPayload(new AccountWithUserPayload(test,user),0);
-        var account2 = new AccountAttachedPayload(new AccountWithUserPayload(test2,user),2);
-        var result = new AccountsAttachedPayload(List.of(account1,account2));
-        return result;
 
-        // Either client or advisor
+        var accountsWithInfo = userService.getAccountsAttached(id);
+        return new AccountsAttachedPayload(accountsWithInfo.accounts()
+                .stream()
+                .map(accountWithInfo ->
+                        new AccountAttachedPayload(
+                                new AccountWithUserPayload(
+                                    new AccountPayload(
+                                            accountWithInfo.getId(),
+                                            accountWithInfo.getType(),
+                                            accountWithInfo.getAmount()
+                                    ),
+                                    new UserPayload(accountWithInfo.getFirstName(), "")
+                                ),
+                                accountWithInfo.getValidation()
+                        )).toList());
     }
 
 }
