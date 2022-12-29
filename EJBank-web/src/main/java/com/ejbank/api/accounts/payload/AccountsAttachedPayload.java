@@ -1,13 +1,25 @@
 package com.ejbank.api.accounts.payload;
 
+import com.ejbank.api.user.payload.UserPayload;
+import com.ejbank.dto.AccountDto;
+
 import java.util.List;
+import java.util.Objects;
 
 public class AccountsAttachedPayload {
 
     private final List<AccountAttachedPayload> accounts;
+    private final String error;
 
-    public AccountsAttachedPayload(List<AccountAttachedPayload> accounts ) {
-        this.accounts= accounts;
+
+    private AccountsAttachedPayload(List<AccountAttachedPayload> accounts, String error) {
+        this.accounts= Objects.requireNonNull(accounts);
+        this.error = Objects.requireNonNull(error);
+    }
+
+
+    public static AccountsAttachedPayload AccountsFromDTO(List<AccountAttachedPayload> accounts, String error){
+        return new AccountsAttachedPayload(accounts, error);
     }
 
     public List<AccountAttachedPayload> getAccounts(){

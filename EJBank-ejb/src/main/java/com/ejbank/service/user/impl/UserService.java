@@ -40,7 +40,7 @@ public class UserService implements UserServiceLocal, Serializable {
             accounts.addAll(customers.stream().flatMap(customer ->
                 getAccount(customer).stream()).toList());
         }
-        return new AccountsDto(accounts, accounts.isEmpty()?null:"Error");
+        return new AccountsDto(accounts, accounts.isEmpty()?"Error":null);
     }
 
     private static List<AccountDto> getAccount(Customer customer) {

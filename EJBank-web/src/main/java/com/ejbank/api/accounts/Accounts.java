@@ -33,61 +33,33 @@ public class Accounts {
     @Path("/{user_id}")
     public AccountsPayload GetAccounts(@PathParam("user_id") Integer id) {
         var accountsDto = userService.getAccounts(id);
-        // TODO : Clean builder for AccountsPayload from AccountsDto
-        return new AccountsPayload(accountsDto.accounts()
-                            .stream()
-                            .map(accountDto ->
-                                    new AccountPayload(accountDto.getId(),
-                                            accountDto.getType(),
-                                            accountDto.getAmount()))
-                            .toList());
-        // TODO : Add error to payload
+        return AccountsPayload.AccountsFromDTO(accountsDto.accounts(), accountsDto.error());
     }
 
     @GET
     @Path("/all/{user_id}")
     public AccountsWithUserPayload GetAllAccounts(@PathParam("user_id") Integer id) {
-        //get information form Bean User
-        //var result = AccountsBean.findAll(id);
-        // TODO : Clean builder for AccountsWithUserPayload from AccountsDto
-        // Look if we need first and last or just first ?
         var accountsWithUser = userService.getAccountsWithUser(id);
-        return new AccountsWithUserPayload(accountsWithUser.accounts()
-                            .stream()
-                            .map(accountWithUser ->
-                                    new AccountWithUserPayload(
-                                            new AccountPayload(
-                                                    accountWithUser.getId(),
-                                                    accountWithUser.getType(),
-                                                    accountWithUser.getAmount()
-                                            ),
-                                            new UserPayload(accountWithUser.getFirstName(), "")
-                                    )).toList());
-        // TODO : Add error to payload
+        return AccountsWithUserPayload.AccountsWithUserFromDTO(accountsWithUser.accounts(),accountsWithUser.error());
     }
 
     @GET
     @Path("/attached/{user_id}")
     public AccountsAttachedPayload GetAttachedAccounts(@PathParam("user_id") Integer id) {
-        // TODO : Finish that
-        //get information form Bean User
-        //var result = AccountsBean.findAll(id);
-
         var accountsWithInfo = userService.getAccountsAttached(id);
-        return new AccountsAttachedPayload(accountsWithInfo.accounts()
+        return AccountsAttachedPayload.AccountsFromDTO(accountsWithInfo.accounts()
                 .stream()
                 .map(accountWithInfo ->
                         new AccountAttachedPayload(
-                                new AccountWithUserPayload(
                                     new AccountPayload(
                                             accountWithInfo.getId(),
                                             accountWithInfo.getType(),
                                             accountWithInfo.getAmount()
                                     ),
-                                    new UserPayload(accountWithInfo.getFirstName(), "")
-                                ),
+                                    new UserPayload(accountWithInfo.getFirstName(), ""),
                                 accountWithInfo.getValidation()
-                        )).toList());
+                        )).toList(),
+                accountsWithInfo.error());
     }
 
 }

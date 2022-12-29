@@ -29,6 +29,7 @@ public class Account {
 
         var owner = new UserPayload("Max", "Dum");
         var adviser = new UserPayload("Rem", "For");
+
         var result = new AccountInfoPayload(owner, adviser, new BigDecimal(15), new BigDecimal(56), new BigDecimal(350));
         return result;
     }
