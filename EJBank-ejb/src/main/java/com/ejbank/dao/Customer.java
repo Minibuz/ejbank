@@ -20,6 +20,12 @@ public class Customer extends User implements Serializable {
     public Customer() {
     }
 
+    public Customer(String login, String password, String email, String firstname, String lastname, String type, Advisor advisor, Set<Account> accounts) {
+        super(login, password, email, firstname, lastname, type);
+        this.advisor = advisor;
+        this.accounts = accounts;
+    }
+
     public Advisor getAdvisor() {
         return advisor;
     }

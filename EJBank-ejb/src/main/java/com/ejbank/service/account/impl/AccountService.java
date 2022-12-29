@@ -43,14 +43,7 @@ public class AccountService implements AccountServiceLocal {
         var accountReceiver = em.find(Account.class, receiverId);
         var author = em.find(User.class, authorId);
         if(accountSource != null && accountReceiver != null) {
-            var newTransaction = new Transaction();
-            newTransaction.setAccountFrom(accountSource);
-            newTransaction.setAccountTo(accountReceiver);
-            newTransaction.setAmount(amount);
-            newTransaction.setAuthor(author);
-            newTransaction.setApplied(false);
-            newTransaction.setComment(comment);
-            newTransaction.setDate(new Date());
+            var newTransaction = new Transaction(accountSource, accountReceiver, author, amount, comment, false, new Date());
             em.persist(newTransaction);
             return new AppliedTransactionDto(true, "Was apply - Need validation now");
         }

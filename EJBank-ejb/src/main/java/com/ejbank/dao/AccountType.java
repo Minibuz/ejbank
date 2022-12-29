@@ -29,6 +29,13 @@ public class AccountType implements Serializable {
     public AccountType() {
     }
 
+    public AccountType(String name, BigDecimal rate, Integer overdraft, Set<Account> accounts) {
+        this.name = name;
+        this.rate = rate;
+        this.overdraft = overdraft;
+        this.accounts = accounts;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -25,8 +25,8 @@ public class Account {
     @GET
     @Path("/{account_id}/{user_id}")
     public AccountInfoPayload GetAccounts(@PathParam("account_id") int account_id, @PathParam("user_id") int user_id) {
-        //get information form Bean --
-        //var result = Bean ----
+        // TODO
+
         var owner = new UserPayload("Max", "Dum");
         var adviser = new UserPayload("Rem", "For");
 

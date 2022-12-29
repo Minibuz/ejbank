@@ -1,5 +1,6 @@
 package com.ejbank.api.accounts.payload;
 
+import com.ejbank.api.user.payload.UserPayload;
 import com.ejbank.dto.AccountDto;
 
 import java.util.List;
@@ -16,22 +17,10 @@ public class AccountsAttachedPayload {
         this.error = Objects.requireNonNull(error);
     }
 
-    // TODO activate the mapper when DTO is create
 
-//    public static AccountsAttachedPayload AccountsFromDTO(List<AccountAttachedPayload> accounts, String error){
-//        return new AccountsAttachedPayload(accounts.stream()
-//                               .map(accountWithUser ->
-//                        new AccountWithUserPayload(
-//                                new AccountPayload(
-//                                        accountWithUser.getId(),
-//                                        accountWithUser.getType(),
-//                                        accountWithUser.getAmount()
-//                                ),
-//                                new UserPayload(accountWithUser.getFirstName(), ""),
-//                                accountWithUser.getValidation()
-//                        ))
-//                .toList(),error);
-//    }
+    public static AccountsAttachedPayload AccountsFromDTO(List<AccountAttachedPayload> accounts, String error){
+        return new AccountsAttachedPayload(accounts, error);
+    }
 
     public List<AccountAttachedPayload> getAccounts(){
         return accounts;

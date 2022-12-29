@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Transaction implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
     @JoinColumn(name="account_id_from", nullable=false)
@@ -40,6 +40,16 @@ public class Transaction implements Serializable {
     private Date date;
 
     public Transaction() {
+    }
+
+    public Transaction(Account accountFrom, Account accountTo, User author, BigDecimal amount, String comment, Boolean applied, Date date) {
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
+        this.author = author;
+        this.amount = amount;
+        this.comment = comment;
+        this.applied = applied;
+        this.date = date;
     }
 
     public Integer getId() {

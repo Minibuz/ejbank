@@ -14,7 +14,11 @@ public class Advisor extends User implements Serializable {
     private Set<Customer> customers;
 
     public Advisor() {
+    }
 
+    public Advisor(String login, String password, String email, String firstname, String lastname, String type, Set<Customer> customers) {
+        super(login, password, email, firstname, lastname, type);
+        this.customers = customers;
     }
 
     public Set<Customer> getCustomers() {
