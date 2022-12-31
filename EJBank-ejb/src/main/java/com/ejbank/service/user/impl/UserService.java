@@ -54,20 +54,29 @@ public class UserService implements UserServiceLocal, Serializable {
 
         Query qry = null;
         if( userDao instanceof Customer customer ) {
-            qry = em.createQuery("SELECT count(trsf)+count(trst) FROM Customer cst " +
-                    "JOIN cst.accounts acts " +
-                    "JOIN acts.transactionFrom trsf " +
-                    "JOIN acts.transactionTo trst " +
-                    "WHERE cst.id = :id " +
-                    "AND trsf.applied = false OR trst.applied = false");
+            qry = em.createQuery("SELECT count(tran) " +
+                    "FROM Customer cst, Account act, Transaction tran " +
+                    "WHERE " +
+                    "cst.id = :id " +
+                    "AND " +
+                    "tran.applied = false " +
+                    "AND " +
+                    "act.customer.id = cst.id " +
+                    "AND " +
+                    "( tran.accountFrom.id = act.id OR tran.accountTo.id = act.id )");
         } else if ( userDao instanceof Advisor advisor ) {
-            qry = em.createQuery("SELECT count(trsf)+count(trst) FROM Advisor adv " +
-                    "JOIN adv.customers csts " +
-                    "JOIN csts.accounts acts " +
-                    "JOIN acts.transactionFrom trsf " +
-                    "JOIN acts.transactionTo trst " +
-                    "WHERE adv.id = :id " +
-                    "AND trsf.applied = false OR trst.applied = false");
+            qry = em.createQuery("SELECT count(tran) " +
+                    "FROM Advisor adv, Customer cst, Account act, Transaction tran " +
+                    "WHERE " +
+                    "adv.id = :id " +
+                    "AND " +
+                    "tran.applied = false " +
+                    "AND " +
+                    "cst.advisor.id = adv.id " +
+                    "AND " +
+                    "act.customer.id = cst.id " +
+                    "AND " +
+                    "( tran.accountFrom.id = act.id OR tran.accountTo.id = act.id )");
         } else {
             throw new IllegalArgumentException();
         }
@@ -114,14 +123,16 @@ public class UserService implements UserServiceLocal, Serializable {
     private List<AccountWithInfoDto> getAccountWithInfo(Customer customer) {
         var accounts = customer.getAccounts();
         var name = customer.getFirstname();
-        //
-        Query qry = em.createQuery("SELECT count(trsf)+count(trst) FROM Customer cst " +
-                "JOIN cst.accounts acts " +
-                "JOIN acts.transactionFrom trsf " +
-                "JOIN acts.transactionTo trst " +
-                "WHERE cst.id = :id " +
-                "AND trsf.applied = false OR trst.applied = false");
-        Long toValidate = (Long) qry.setParameter("id", customer.getId()).getSingleResult();
-        return accounts.stream().map(account -> new AccountWithInfoDto(account.getId(), name, account.getAccountType().getName(), account.getBalance(), toValidate.intValue())).toList();
+        return accounts.stream()
+                .map(account -> {
+                    Query qry = em.createQuery("SELECT count(tran) " +
+                            "FROM Transaction tran " +
+                            "WHERE " +
+                            "tran.applied = false " +
+                            "AND " +
+                            "( tran.accountFrom.id = :id OR tran.accountTo.id = :id )");
+                    Long toValidate = (Long) qry.setParameter("id", account.getId()).getSingleResult();
+                    return new AccountWithInfoDto(account.getId(), name, account.getAccountType().getName(), account.getBalance(), toValidate.intValue());
+                }).toList();
     }
 }
