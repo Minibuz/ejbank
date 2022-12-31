@@ -3,6 +3,8 @@ package com.ejbank.api.account;
 
 import com.ejbank.api.account.payload.AccountInfoPayload;
 import com.ejbank.api.user.payload.UserPayload;
+import com.ejbank.service.account.AccountServiceLocal;
+import com.ejbank.service.user.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 
 import javax.ejb.EJB;
@@ -22,15 +24,18 @@ public class Account {
     @EJB
     private TestBeanLocal testBean;
 
+    @EJB
+    private AccountServiceLocal userService;
+
     @GET
     @Path("/{account_id}/{user_id}")
     public AccountInfoPayload GetAccounts(@PathParam("account_id") int account_id, @PathParam("user_id") int user_id) {
         // TODO
+        var accountDetailDto = userService.accountDetail(account_id,user_id);
+        var owner = new UserPayload(accountDetailDto.getOwner().getFirstname(), accountDetailDto.getOwner().getLastname());
+        var adviser = new UserPayload(accountDetailDto.getAdvisor().getFirstname(), accountDetailDto.getAdvisor().getLastname());
 
-        var owner = new UserPayload("Max", "Dum");
-        var adviser = new UserPayload("Rem", "For");
-
-        var result = new AccountInfoPayload(owner, adviser, new BigDecimal(15), new BigDecimal(56), new BigDecimal(350));
+        var result = new AccountInfoPayload(owner, adviser, accountDetailDto.getRate(), accountDetailDto.getInterest(), accountDetailDto.getAmount(),accountDetailDto.getError());
         return result;
     }
 }

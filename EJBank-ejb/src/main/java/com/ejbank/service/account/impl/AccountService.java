@@ -3,6 +3,7 @@ package com.ejbank.service.account.impl;
 import com.ejbank.dao.Account;
 import com.ejbank.dao.Transaction;
 import com.ejbank.dao.User;
+import com.ejbank.dto.AccountDetailDto;
 import com.ejbank.dto.AppliedTransactionDto;
 import com.ejbank.dto.ValidityCheckDto;
 import com.ejbank.service.account.AccountServiceLocal;
@@ -48,5 +49,16 @@ public class AccountService implements AccountServiceLocal {
             return new AppliedTransactionDto(true, "Was apply - Need validation now");
         }
         return new AppliedTransactionDto(false, "Wasn't apply");
+    }
+
+    @Override
+    public AccountDetailDto accountDetail(Integer accountId, Integer userId) {
+
+        var account = em.find(Account.class, accountId);
+        var owner = account.getCustomer();
+        var adviser = owner.getAdvisor();
+
+        return new AccountDetailDto(account,owner,adviser,null);
+
     }
 }

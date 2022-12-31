@@ -1,5 +1,6 @@
 package com.ejbank.service.account;
 
+import com.ejbank.dto.AccountDetailDto;
 import com.ejbank.dto.AppliedTransactionDto;
 import com.ejbank.dto.ValidityCheckDto;
 
@@ -12,4 +13,7 @@ public interface AccountServiceLocal {
     ValidityCheckDto checkValidity(Integer sourceId, Integer receiverId, BigDecimal amount);
 
     AppliedTransactionDto applyTransaction(Integer authorId, Integer sourceId, Integer receiverId, BigDecimal amount, String comment);
+
+    AccountDetailDto accountDetail(Integer accountId, Integer userId);
+
 }
