@@ -83,10 +83,25 @@ public class AccountService implements AccountServiceLocal {
     public AccountDetailDto accountDetail(Integer accountId, Integer userId) {
 
         var account = em.find(Account.class, accountId);
+
+        if(account == null){
+           return  new AccountDetailDto(null,null,null,"Error: this account doesn't exist");
+        }
+
         var owner = account.getCustomer();
+        if(owner == null){
+            return new AccountDetailDto(null,null,null,"Error: this account doesn't have a owner :c");
+        }
+
         var adviser = owner.getAdvisor();
 
-        return new AccountDetailDto(account,owner,adviser,null);
+        if(adviser == null){
+            return new AccountDetailDto(null,null,null,"Error: this account doesn't have a adviser 8)");
+        }
 
+        if( userId == null || (!userId.equals(adviser.getId()) && !userId.equals(owner.getId()))){
+            return new AccountDetailDto(null,null,null,"Error: this user doesn't have access to this account");
+        }
+        return new AccountDetailDto(account,owner,adviser,null);
     }
 }

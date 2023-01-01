@@ -45,7 +45,6 @@ public class AccountInfoPayload {
     public BigDecimal getAmount() {
         return amount;
     }
-
     public String getError() {
         return error;
     }
