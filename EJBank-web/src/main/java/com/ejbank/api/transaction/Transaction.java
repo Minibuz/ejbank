@@ -3,14 +3,13 @@ package com.ejbank.api.transaction;
 
 import com.ejbank.api.transaction.payload.*;
 import com.ejbank.service.account.AccountServiceLocal;
+import com.ejbank.service.transaction.TransactionServiceLocal;
 import com.ejbank.service.user.UserServiceLocal;
-import com.ejbank.test.TestBeanLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.math.BigDecimal;
 
 @Path("/transaction")
 @Produces(MediaType.APPLICATION_JSON)
@@ -22,6 +21,9 @@ public class Transaction {
 
     @EJB
     private AccountServiceLocal accountService;
+
+    @EJB
+    private TransactionServiceLocal transactionService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -53,9 +55,9 @@ public class Transaction {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/validation")
     public TransactionValidationResponsePayload validationPostRequest(TransactionValidationRequestPayload payload) {
-        // TODO
-        var result = new TransactionValidationResponsePayload(true,"Retour du serveur");
-        return result;
+        // TODO : Error in the exit payload
+        var resultDto = transactionService.validateTransaction(payload.getTransaction(), payload.isApprove(), payload.getAuthor());
+        return new TransactionValidationResponsePayload(resultDto.result(), resultDto.message());
     }
 
 
