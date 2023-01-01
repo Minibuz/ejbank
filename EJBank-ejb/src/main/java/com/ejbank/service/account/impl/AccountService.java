@@ -4,9 +4,7 @@ import com.ejbank.dao.Account;
 import com.ejbank.dao.Customer;
 import com.ejbank.dao.Transaction;
 import com.ejbank.dao.User;
-import com.ejbank.dto.AccountDetailDto;
-import com.ejbank.dto.AppliedTransactionDto;
-import com.ejbank.dto.ValidityCheckDto;
+import com.ejbank.dto.*;
 import com.ejbank.service.account.AccountServiceLocal;
 
 import javax.ejb.LocalBean;
@@ -15,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Stateless
 @LocalBean
@@ -88,5 +87,31 @@ public class AccountService implements AccountServiceLocal {
 
         return new AccountDetailDto(account,owner,adviser,null);
 
+    }
+
+    @Override
+    public TransactionsDto getTransactions(Integer accountId, Integer offset, Integer userId) {
+        var qry = em.createQuery("""
+SELECT tran
+FROM Transaction tran
+WHERE ( tran.accountFrom.id = :id OR tran.accountTo.id = :id )
+ORDER BY tran.date desc
+""");
+        qry.setParameter("id", accountId)
+                .setMaxResults(10)
+                .setFirstResult(offset);
+        List<Transaction> results = qry.getResultList();
+        return new TransactionsDto(results.size(),
+                results.stream().map(trs -> new TransactionDto(
+                        trs.getId(),
+                        trs.getDate(),
+                        trs.getAccountFrom().getAccountType().getName(),
+                        trs.getAccountTo().getAccountType().getName(),
+                        trs.getAccountTo().getCustomer().getFirstname(),
+                        trs.getAmount(),
+                        trs.getAuthor().getFirstname() + " " + trs.getAuthor().getLastname(),
+                        trs.getComment(),
+                        trs.getApplied())).toList(),
+                "");
     }
 }
