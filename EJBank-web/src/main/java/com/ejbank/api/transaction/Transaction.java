@@ -35,7 +35,8 @@ public class Transaction {
                 previewDto.result(),
                 previewDto.accountSender(),
                 previewDto.accountReceiver(),
-                previewDto.message()
+                previewDto.message(),
+                previewDto.error()
         );
     }
 

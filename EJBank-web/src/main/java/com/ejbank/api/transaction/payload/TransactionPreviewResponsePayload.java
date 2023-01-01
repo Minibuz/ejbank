@@ -9,13 +9,16 @@ public class TransactionPreviewResponsePayload {
     private final BigDecimal after;
     private final String message;
 
+    private final String error;
 
 
-    public TransactionPreviewResponsePayload(boolean result, BigDecimal before,BigDecimal after,String message) {
+
+    public TransactionPreviewResponsePayload(boolean result, BigDecimal before,BigDecimal after,String message, String error) {
         this.result =result;
         this.before =before;
         this.after=after;
         this.message=message;
+        this.error = error;
     }
 
     public boolean isResult() {
@@ -32,5 +35,9 @@ public class TransactionPreviewResponsePayload {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getError() {
+        return error;
     }
 }
