@@ -47,19 +47,7 @@ public class Accounts {
     @Path("/attached/{user_id}")
     public AccountsAttachedPayload GetAttachedAccounts(@PathParam("user_id") Integer id) {
         var accountsWithInfo = userService.getAccountsAttached(id);
-        return AccountsAttachedPayload.AccountsFromDTO(accountsWithInfo.accounts()
-                .stream()
-                .map(accountWithInfo ->
-                        new AccountAttachedPayload(
-                                    new AccountPayload(
-                                            accountWithInfo.getId(),
-                                            accountWithInfo.getType(),
-                                            accountWithInfo.getAmount()
-                                    ),
-                                    new UserPayload(accountWithInfo.getFirstName(), ""),
-                                accountWithInfo.getValidation()
-                        )).toList(),
-                accountsWithInfo.error());
+        return AccountsAttachedPayload.AccountsFromDTO(accountsWithInfo.accounts(),accountsWithInfo.error());
     }
 
 }
