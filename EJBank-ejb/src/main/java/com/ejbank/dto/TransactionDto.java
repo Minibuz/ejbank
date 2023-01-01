@@ -24,7 +24,7 @@ public class TransactionDto {
         this.amount = amount;
         this.author = author;
         this.comment = comment;
-        this.state = state?"Applied":"Not applied";
+        this.state = state?"APPLYED":"TO_APPROVE";
     }
 
     public Integer getId() {
