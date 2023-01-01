@@ -25,18 +25,16 @@ public class AccountService implements AccountServiceLocal {
     @Override
     public ValidityCheckDto checkValidity(Integer sourceId, Integer receiverId, BigDecimal amount, Integer authorId) {
         var user = em.find(User.class, authorId);
-        if( user instanceof Customer && amount.compareTo(new BigDecimal(1000)) > 0) {
-            return new ValidityCheckDto(false, amount, null, null, "Error: Customer cannot make a transfer of more than 1.000 euros.");
-        }
+
 
         var accountSource = em.find(Account.class, sourceId);
         if(accountSource == null) {
-            return new ValidityCheckDto(false, amount, null, null, "Error: Source account doesn't exist");
+            return new ValidityCheckDto(false, amount, BigDecimal.ZERO, null, "Error: Source account doesn't exist");
         }
 
         var accountReceiver = em.find(Account.class, receiverId);
         if(accountReceiver == null) {
-            return new ValidityCheckDto(false, amount, null, null, "Error: Receiving account doesn't exist");
+            return new ValidityCheckDto(false, amount, BigDecimal.ZERO, null, "Error: Receiving account doesn't exist");
         }
 
         var balanceSource = accountSource.getBalance();
