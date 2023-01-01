@@ -51,11 +51,6 @@ public class AccountService implements AccountServiceLocal {
 
     @Override
     public AppliedTransactionDto applyTransaction(Integer authorId, Integer sourceId, Integer receiverId, BigDecimal amount, String comment) {
-        var user = em.find(User.class, authorId);
-        if( user instanceof Customer && amount.compareTo(new BigDecimal(1000)) > 0) {
-            return new AppliedTransactionDto(false, "Error: Customer cannot make a transfer of more than 1.000 euros.");
-        }
-
         var accountSource = em.find(Account.class, sourceId);
         if(accountSource == null) {
             return new AppliedTransactionDto(false, "Error: Source account doesn't exist");
@@ -66,9 +61,22 @@ public class AccountService implements AccountServiceLocal {
             return new AppliedTransactionDto(false, "Error: Receiving account doesn't exist");
         }
 
-        var newTransaction = new Transaction(accountSource, accountReceiver, user, amount, comment, false, new Date());
+        var user = em.find(User.class, authorId);
+        if( user instanceof Customer && amount.compareTo(new BigDecimal(1000)) > 0) {
+            var newTransaction = new Transaction(accountSource, accountReceiver, user, amount, comment, false, new Date());
+            em.persist(newTransaction);
+            return new AppliedTransactionDto(true, "Transaction need validation");
+        }
+
+        var newTransaction = new Transaction(accountSource, accountReceiver, user, amount, comment, true, new Date());
         em.persist(newTransaction);
-        return new AppliedTransactionDto(true, "Was apply - Need validation now");
+
+        var balanceFrom = accountSource.getBalance();
+        var balanceTo = accountReceiver.getBalance();
+        accountSource.setBalance(balanceFrom.subtract(amount));
+        accountReceiver.setBalance(balanceTo.add(amount));
+
+        return new AppliedTransactionDto(true, "Transaction was applied");
     }
 
     @Override

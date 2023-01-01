@@ -9,11 +9,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Stateless
 @LocalBean
@@ -53,7 +51,7 @@ public class UserService implements UserServiceLocal, Serializable {
         var userDao = em.find(User.class, id);
 
         Query qry = null;
-        if( userDao instanceof Customer customer ) {
+        if( userDao instanceof Customer ) {
             qry = em.createQuery("SELECT count(tran) " +
                     "FROM Customer cst, Account act, Transaction tran " +
                     "WHERE " +
@@ -64,7 +62,7 @@ public class UserService implements UserServiceLocal, Serializable {
                     "act.customer.id = cst.id " +
                     "AND " +
                     "( tran.accountFrom.id = act.id OR tran.accountTo.id = act.id )");
-        } else if ( userDao instanceof Advisor advisor ) {
+        } else if ( userDao instanceof Advisor ) {
             qry = em.createQuery("SELECT count(tran) " +
                     "FROM Advisor adv, Customer cst, Account act, Transaction tran " +
                     "WHERE " +

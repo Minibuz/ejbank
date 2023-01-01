@@ -4,7 +4,6 @@ package com.ejbank.api.account;
 import com.ejbank.api.account.payload.AccountInfoPayload;
 import com.ejbank.api.user.payload.UserPayload;
 import com.ejbank.service.account.AccountServiceLocal;
-import com.ejbank.service.user.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 
 import javax.ejb.EJB;
@@ -14,7 +13,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.math.BigDecimal;
 
 @Path("/account")
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,7 +29,7 @@ public class Account {
     @Path("/{account_id}/{user_id}")
     public AccountInfoPayload GetAccounts(@PathParam("account_id") int account_id, @PathParam("user_id") int user_id) {
         // TODO
-        var accountDetailDto = userService.accountDetail(account_id,user_id);
+        var accountDetailDto = userService.accountDetail(account_id, user_id);
         var owner = new UserPayload(accountDetailDto.getOwner().getFirstname(), accountDetailDto.getOwner().getLastname());
         var adviser = new UserPayload(accountDetailDto.getAdvisor().getFirstname(), accountDetailDto.getAdvisor().getLastname());
 
