@@ -116,7 +116,12 @@ ORDER BY tran.date desc
                 .setMaxResults(10)
                 .setFirstResult(offset);
         List<Transaction> results = qry.getResultList();
-        return new TransactionsDto(results.size(),
+
+        var qryTotal = em.createQuery("SELECT count(tran) FROM Transaction tran WHERE ( tran.accountFrom.id = :id OR tran.accountTo.id = :id )");
+        qryTotal.setParameter("id", accountId);
+        var result = (Long) qryTotal.getSingleResult();
+
+        return new TransactionsDto(result.intValue(),
                 results.stream().map(trs -> new TransactionDto(
                         trs.getId(),
                         trs.getDate(),
