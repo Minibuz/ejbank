@@ -2,6 +2,7 @@ package com.ejbank.api.transaction;
 
 
 import com.ejbank.api.transaction.payload.*;
+import com.ejbank.dto.TransactionsDto;
 import com.ejbank.service.account.AccountServiceLocal;
 import com.ejbank.service.transaction.TransactionServiceLocal;
 import com.ejbank.service.user.UserServiceLocal;
@@ -73,9 +74,10 @@ public class Transaction {
 
     @GET
     @Path("/list/{account_id}/{offset}/{user_id}")
-    public int allTransactionFromUser(@PathParam("account_id") int account_id,@PathParam("offset") int offset ,@PathParam("user_id") int user_id) {
-        // TODO
-        var result = new TransactionValidationResponsePayload(true,"Retour du serveur");
-        return 3;
+    public TransactionsDto allTransactionFromUser(@PathParam("account_id") int account_id, @PathParam("offset") int offset , @PathParam("user_id") int user_id) {
+        // TODO : Front payload
+        var result = accountService.getTransactions(account_id, offset, user_id);
+        System.out.println(result);
+        return result;
     }
 }
