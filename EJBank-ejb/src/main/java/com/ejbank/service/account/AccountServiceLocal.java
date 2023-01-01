@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Local
 public interface AccountServiceLocal {
 
-    ValidityCheckDto checkValidity(Integer sourceId, Integer receiverId, BigDecimal amount);
+    ValidityCheckDto checkValidity(Integer sourceId, Integer receiverId, BigDecimal amount, Integer authorId);
 
     AppliedTransactionDto applyTransaction(Integer authorId, Integer sourceId, Integer receiverId, BigDecimal amount, String comment);
 

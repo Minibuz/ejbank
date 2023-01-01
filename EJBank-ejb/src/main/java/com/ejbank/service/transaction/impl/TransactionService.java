@@ -7,10 +7,15 @@ import com.ejbank.dao.User;
 import com.ejbank.dto.ValidatedTransactionDto;
 import com.ejbank.service.transaction.TransactionServiceLocal;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
 
-public class TransactionService implements TransactionServiceLocal {
+@Stateless
+@LocalBean
+public class TransactionService implements TransactionServiceLocal, Serializable {
 
     @PersistenceContext(unitName = "EJBankPU")
     private EntityManager em;

@@ -29,7 +29,7 @@ public class Transaction {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/preview")
     public TransactionPreviewResponsePayload previewPostRequest(TransactionPreviewRequestPayload payload) {
-        var previewDto = accountService.checkValidity(payload.getSource(), payload.getDestination(), payload.getAmount());
+        var previewDto = accountService.checkValidity(payload.getSource(), payload.getDestination(), payload.getAmount(), payload.getAuthor());
         return new TransactionPreviewResponsePayload(
                 previewDto.result(),
                 previewDto.accountSender(),
