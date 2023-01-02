@@ -4,7 +4,6 @@ package com.ejbank.api.account;
 import com.ejbank.api.account.payload.AccountInfoPayload;
 import com.ejbank.api.user.payload.UserPayload;
 import com.ejbank.service.account.AccountServiceLocal;
-import com.ejbank.test.TestBeanLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -20,9 +19,6 @@ import javax.ws.rs.core.MediaType;
 public class Account {
 
     @EJB
-    private TestBeanLocal testBean;
-
-    @EJB
     private AccountServiceLocal userService;
 
     @GET
@@ -33,7 +29,6 @@ public class Account {
         var owner = new UserPayload(accountDetailDto.getOwner().getFirstname(), accountDetailDto.getOwner().getLastname());
         var adviser = new UserPayload(accountDetailDto.getAdvisor().getFirstname(), accountDetailDto.getAdvisor().getLastname());
 
-        var result = new AccountInfoPayload(owner, adviser, accountDetailDto.getRate(), accountDetailDto.getInterest(), accountDetailDto.getAmount(),accountDetailDto.getError());
-        return result;
+        return new AccountInfoPayload(owner, adviser, accountDetailDto.getRate(), accountDetailDto.getInterest(), accountDetailDto.getAmount(),accountDetailDto.getError());
     }
 }

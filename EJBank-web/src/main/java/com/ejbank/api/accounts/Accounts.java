@@ -1,10 +1,7 @@
 package com.ejbank.api.accounts;
 
-
-
 import com.ejbank.api.accounts.payload.*;
 import com.ejbank.service.user.UserServiceLocal;
-import com.ejbank.test.TestBeanLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -18,9 +15,6 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class Accounts {
-
-    @EJB
-    private TestBeanLocal testBean;
 
     @EJB
     private UserServiceLocal userService;
