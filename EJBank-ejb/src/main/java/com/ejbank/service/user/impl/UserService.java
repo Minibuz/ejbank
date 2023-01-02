@@ -94,7 +94,7 @@ public class UserService implements UserServiceLocal, Serializable {
             accountsWithUser.addAll(customers.stream().flatMap(customer ->
                 getAccountWithUser(customer).stream()).toList());
         }
-        return new AccountsWithUserDto(accountsWithUser, accountsWithUser.isEmpty()?null:"Error");
+        return new AccountsWithUserDto(accountsWithUser, accountsWithUser.isEmpty()?"Error":null);
     }
 
     private static List<AccountWithUserDto> getAccountWithUser(Customer customer) {
@@ -115,7 +115,7 @@ public class UserService implements UserServiceLocal, Serializable {
             accountsWithUser.addAll(customers.stream().flatMap(customer ->
                     getAccountWithInfo(customer).stream()).toList());
         }
-        return new AccountsWithInfoDto(accountsWithUser, "");
+        return new AccountsWithInfoDto(accountsWithUser, null);
     }
 
     private List<AccountWithInfoDto> getAccountWithInfo(Customer customer) {

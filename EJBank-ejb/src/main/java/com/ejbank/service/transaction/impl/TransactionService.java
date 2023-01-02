@@ -51,6 +51,6 @@ public class TransactionService implements TransactionServiceLocal, Serializable
         accountFrom.setBalance(balanceFrom.subtract(amount));
         accountTo.setBalance(balanceTo.add(amount));
 
-        return new ValidatedTransactionDto(true, "Transaction is validate", "");
+        return new ValidatedTransactionDto(true, "Transaction is validate", null);
     }
 }

@@ -130,6 +130,6 @@ ORDER BY tran.date desc
                         trs.getAuthor().getFirstname() + " " + trs.getAuthor().getLastname(),
                         trs.getComment(),
                         trs.getApplied())).toList(),
-                "");
+                null);
     }
 }
