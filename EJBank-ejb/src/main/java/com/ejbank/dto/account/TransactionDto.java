@@ -1,4 +1,4 @@
-package com.ejbank.dto;
+package com.ejbank.dto.account;
 
 import java.math.BigDecimal;
 import java.util.Date;

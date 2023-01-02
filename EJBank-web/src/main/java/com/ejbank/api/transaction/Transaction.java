@@ -2,7 +2,7 @@ package com.ejbank.api.transaction;
 
 
 import com.ejbank.api.transaction.payload.*;
-import com.ejbank.dto.TransactionsDto;
+import com.ejbank.dto.account.TransactionsDto;
 import com.ejbank.service.account.AccountServiceLocal;
 import com.ejbank.service.transaction.TransactionServiceLocal;
 import com.ejbank.service.user.UserServiceLocal;

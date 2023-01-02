@@ -1,4 +1,4 @@
-package com.ejbank.dto;
+package com.ejbank.dto.account;
 
 import com.ejbank.dao.Account;
 import com.ejbank.dao.User;

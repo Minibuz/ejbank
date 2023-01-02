@@ -3,8 +3,6 @@ package com.ejbank.api.accounts;
 
 
 import com.ejbank.api.accounts.payload.*;
-import com.ejbank.api.user.payload.UserPayload;
-import com.ejbank.dto.AccountsWithUserDto;
 import com.ejbank.service.user.UserServiceLocal;
 import com.ejbank.test.TestBeanLocal;
 
@@ -15,8 +13,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.math.BigDecimal;
-import java.util.List;
 
 @Path("/accounts")
 @Produces(MediaType.APPLICATION_JSON)

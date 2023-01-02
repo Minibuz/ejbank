@@ -4,7 +4,7 @@ import com.ejbank.dao.Account;
 import com.ejbank.dao.Customer;
 import com.ejbank.dao.Transaction;
 import com.ejbank.dao.User;
-import com.ejbank.dto.*;
+import com.ejbank.dto.account.*;
 import com.ejbank.service.account.AccountServiceLocal;
 
 import javax.ejb.LocalBean;

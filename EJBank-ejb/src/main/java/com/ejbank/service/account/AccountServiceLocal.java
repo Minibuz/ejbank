@@ -1,9 +1,9 @@
 package com.ejbank.service.account;
 
-import com.ejbank.dto.AccountDetailDto;
-import com.ejbank.dto.AppliedTransactionDto;
-import com.ejbank.dto.TransactionsDto;
-import com.ejbank.dto.ValidityCheckDto;
+import com.ejbank.dto.account.AccountDetailDto;
+import com.ejbank.dto.account.AppliedTransactionDto;
+import com.ejbank.dto.account.TransactionsDto;
+import com.ejbank.dto.account.ValidityCheckDto;
 
 import javax.ejb.Local;
 import java.math.BigDecimal;

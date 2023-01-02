@@ -2,7 +2,6 @@ package com.ejbank.api.test;
 
 import com.ejbank.api.test.payload.PeoplePayload;
 import com.ejbank.service.user.UserServiceLocal;
-import com.ejbank.test.TestBeanLocal;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -17,9 +16,6 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class Test {
-
-    @EJB
-    private TestBeanLocal testBean;
 
     @EJB
     private UserServiceLocal userService;

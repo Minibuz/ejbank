@@ -1,11 +1,11 @@
 package com.ejbank.service.user;
 
-import com.ejbank.dao.User;
-import com.ejbank.dto.*;
+import com.ejbank.dto.user.AccountsDto;
+import com.ejbank.dto.user.AccountsWithInfoDto;
+import com.ejbank.dto.user.AccountsWithUserDto;
+import com.ejbank.dto.user.UserInfo;
 
 import javax.ejb.Local;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.List;
 
 @Local
 public interface UserServiceLocal {

@@ -4,7 +4,7 @@ import com.ejbank.dao.Advisor;
 import com.ejbank.dao.Customer;
 import com.ejbank.dao.Transaction;
 import com.ejbank.dao.User;
-import com.ejbank.dto.ValidatedTransactionDto;
+import com.ejbank.dto.transaction.ValidatedTransactionDto;
 import com.ejbank.service.transaction.TransactionServiceLocal;
 
 import javax.ejb.LocalBean;

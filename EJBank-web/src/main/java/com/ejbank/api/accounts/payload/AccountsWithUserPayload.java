@@ -1,8 +1,7 @@
 package com.ejbank.api.accounts.payload;
 
 import com.ejbank.api.user.payload.UserPayload;
-import com.ejbank.dto.AccountWithUserDto;
-import com.ejbank.dto.AccountsWithUserDto;
+import com.ejbank.dto.user.AccountWithUserDto;
 
 import java.util.List;
 import java.util.Objects;

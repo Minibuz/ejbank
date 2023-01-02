@@ -1,6 +1,6 @@
 package com.ejbank.service.transaction;
 
-import com.ejbank.dto.ValidatedTransactionDto;
+import com.ejbank.dto.transaction.ValidatedTransactionDto;
 
 import javax.ejb.Local;
 

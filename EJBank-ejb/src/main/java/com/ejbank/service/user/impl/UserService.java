@@ -1,7 +1,7 @@
 package com.ejbank.service.user.impl;
 
 import com.ejbank.dao.*;
-import com.ejbank.dto.*;
+import com.ejbank.dto.user.*;
 import com.ejbank.service.user.UserServiceLocal;
 
 import javax.ejb.LocalBean;
