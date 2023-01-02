@@ -12,16 +12,23 @@ public class AccountDetailDto {
     private final BigDecimal rate;
     private final BigDecimal interest;
     private final BigDecimal amount;
-
     private final String error;
 
 
     public AccountDetailDto(Account account, User owner, User advisor, String error) {
         this.owner = owner;
         this.advisor = advisor;
-        this.rate = account.getAccountType().getRate();
-        this.interest = account.getBalance().multiply(this.rate).divide(BigDecimal.valueOf(100));
-        this.amount = account.getBalance();
+
+        if(account == null){
+           this.rate = null;
+           this.interest = null;
+           this.amount = null;
+        }else {
+            this.rate = account.getAccountType().getRate();
+            this.interest = account.getBalance().multiply(this.rate).divide(BigDecimal.valueOf(100));
+            this.amount = account.getBalance();
+        }
+
         this.error = error;
     }
 

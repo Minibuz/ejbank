@@ -13,6 +13,9 @@ public class AccountAttachedPayload {
     public AccountAttachedPayload(AccountPayload account, UserPayload user, int validation) {
         this.account = Objects.requireNonNull(account);
         this.user = Objects.requireNonNull(user);
+        if(validation<0){
+            throw new IllegalArgumentException("validation can't be negative");
+        }
         this.validation=validation;
     }
 

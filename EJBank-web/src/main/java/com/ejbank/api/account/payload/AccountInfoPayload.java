@@ -13,7 +13,6 @@ public class AccountInfoPayload {
     private final BigDecimal rate;
     private final BigDecimal interest;
     private final BigDecimal amount;
-
     private final String error;
 
 
@@ -27,11 +26,11 @@ public class AccountInfoPayload {
     }
 
     public String getOwner() {
-        return owner.toString();
+        return owner != null ? owner.toString() : null;
     }
 
     public String getAdvisor() {
-        return advisor.toString();
+        return advisor != null ? advisor.toString() : null;
     }
 
     public BigDecimal getRate() {
