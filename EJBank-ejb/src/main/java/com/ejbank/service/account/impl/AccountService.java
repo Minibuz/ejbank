@@ -24,8 +24,6 @@ public class AccountService implements AccountServiceLocal {
 
     @Override
     public ValidityCheckDto checkValidity(Integer sourceId, Integer receiverId, BigDecimal amount, Integer authorId) {
-        var user = em.find(User.class, authorId);
-
 
         var accountSource = em.find(Account.class, sourceId);
         if(accountSource == null) {
@@ -104,6 +102,15 @@ public class AccountService implements AccountServiceLocal {
 
     @Override
     public TransactionsDto getTransactions(Integer accountId, Integer offset, Integer userId) {
+        var account = em.find(Account.class, accountId);
+
+        if(account == null){
+            return new TransactionsDto(0, List.of(), "Error");
+        }
+        if(account.getCustomer().getId().intValue() != userId.intValue()) {
+            return new TransactionsDto(0 , List.of(), "Error");
+        }
+
         var qry = em.createQuery("""
 SELECT tran
 FROM Transaction tran
