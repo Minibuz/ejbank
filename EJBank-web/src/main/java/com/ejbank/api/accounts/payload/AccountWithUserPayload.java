@@ -5,6 +5,7 @@ package com.ejbank.api.accounts.payload;
 import com.ejbank.api.user.payload.UserPayload;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class AccountWithUserPayload {
 
@@ -12,7 +13,7 @@ public class AccountWithUserPayload {
     private final UserPayload user;
 
     public AccountWithUserPayload(AccountPayload account, UserPayload user) {
-        this.account = account;
+        this.account = Objects.requireNonNull(account);
         this.user = user;
     }
 

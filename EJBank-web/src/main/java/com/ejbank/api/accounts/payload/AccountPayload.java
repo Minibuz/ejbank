@@ -1,6 +1,7 @@
 package com.ejbank.api.accounts.payload;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class AccountPayload {
 
@@ -10,8 +11,8 @@ public class AccountPayload {
 
     public AccountPayload(int id_account, String type, BigDecimal amount) {
         this.id_account = id_account ;
-        this.type =type;
-        this.amount = amount;
+        this.type = Objects.requireNonNull(type);
+        this.amount = Objects.requireNonNull(amount);
     }
 
     public int getId() {
