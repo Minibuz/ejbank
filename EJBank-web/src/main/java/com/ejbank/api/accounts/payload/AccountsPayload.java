@@ -1,6 +1,6 @@
 package com.ejbank.api.accounts.payload;
 
-import com.ejbank.dto.user.AccountDto;
+import com.ejbank.dto.user.AccountsDto;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +17,11 @@ public class AccountsPayload {
         this.error = error;
     }
 
-    public static AccountsPayload AccountsFromDTO(List<AccountDto> accounts, String error){
+    public static AccountsPayload AccountsFromDTO(AccountsDto list){
+
+        var accounts = list.accounts();
+        var error = list.error();
+
         return new AccountsPayload(accounts.stream()
                             .map(accountDto ->
                                     new AccountPayload(accountDto.getId(),

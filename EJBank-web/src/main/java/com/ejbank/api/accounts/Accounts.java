@@ -23,21 +23,21 @@ public class Accounts {
     @Path("/{user_id}")
     public AccountsPayload GetAccounts(@PathParam("user_id") Integer id) {
         var accountsDto = userService.getAccounts(id);
-        return AccountsPayload.AccountsFromDTO(accountsDto.accounts(), accountsDto.error());
+        return AccountsPayload.AccountsFromDTO(accountsDto);
     }
 
     @GET
     @Path("/all/{user_id}")
     public AccountsWithUserPayload GetAllAccounts(@PathParam("user_id") Integer id) {
         var accountsWithUser = userService.getAccountsWithUser(id);
-        return AccountsWithUserPayload.AccountsWithUserFromDTO(accountsWithUser.accounts(),accountsWithUser.error());
+        return AccountsWithUserPayload.AccountsWithUserFromDTO(accountsWithUser);
     }
+
 
     @GET
     @Path("/attached/{user_id}")
     public AccountsAttachedPayload GetAttachedAccounts(@PathParam("user_id") Integer id) {
         var accountsWithInfo = userService.getAccountsAttached(id);
-        return AccountsAttachedPayload.AccountsFromDTO(accountsWithInfo.accounts(),accountsWithInfo.error());
+        return AccountsAttachedPayload.AccountsFromDTO(accountsWithInfo);
     }
-
 }

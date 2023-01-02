@@ -1,7 +1,7 @@
 package com.ejbank.api.accounts.payload;
 
 import com.ejbank.api.user.payload.UserPayload;
-import com.ejbank.dto.user.AccountWithUserDto;
+import com.ejbank.dto.user.AccountsWithUserDto;
 
 import java.util.List;
 import java.util.Objects;
@@ -9,16 +9,17 @@ import java.util.Objects;
 public class AccountsWithUserPayload {
 
     private final List<AccountWithUserPayload> accounts;
-
     private final String error;
 
     private AccountsWithUserPayload(List<AccountWithUserPayload> accounts, String error) {
 
         this.accounts= Objects.requireNonNull(accounts);
-        this.error=Objects.requireNonNull(error);
+        this.error=error;
     }
 
-    public static AccountsWithUserPayload AccountsWithUserFromDTO(List<AccountWithUserDto> accounts, String error){
+    public static AccountsWithUserPayload AccountsWithUserFromDTO(AccountsWithUserDto list){
+        var accounts = list.accounts();
+        var error = list.error();
         return new AccountsWithUserPayload(accounts.stream()
                 .map(accountWithUser ->
                         new AccountWithUserPayload(
@@ -35,4 +36,7 @@ public class AccountsWithUserPayload {
         return accounts;
     }
 
+    public String getError() {
+        return error;
+    }
 }
