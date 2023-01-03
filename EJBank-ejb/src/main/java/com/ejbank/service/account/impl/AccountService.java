@@ -105,10 +105,10 @@ public class AccountService implements AccountServiceLocal {
         var account = em.find(Account.class, accountId);
 
         if(account == null){
-            return new TransactionsDto(0, List.of(), "Error");
+            return new TransactionsDto(0, List.of(), "Error: Account does not exist");
         }
         if(account.getCustomer().getId().intValue() != userId.intValue()) {
-            return new TransactionsDto(0 , List.of(), "Error");
+            return new TransactionsDto(0 , List.of(), "Error: This user cannot access this account");
         }
 
         var qry = em.createQuery("""
