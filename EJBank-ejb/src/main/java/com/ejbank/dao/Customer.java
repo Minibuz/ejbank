@@ -2,7 +2,6 @@ package com.ejbank.dao;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -20,30 +19,10 @@ public class Customer extends User implements Serializable {
     public Customer() {
     }
 
-    public Customer(String login, String password, String email, String firstname, String lastname, String type, Advisor advisor, Set<Account> accounts) {
-        super(login, password, email, firstname, lastname, type);
-        this.advisor = advisor;
-        this.accounts = accounts;
-    }
-
     public Advisor getAdvisor() {
         return advisor;
     }
-    public void setAdvisor(Advisor advisor) {
-        this.advisor = advisor;
-    }
     public Set<Account> getAccounts() {
         return accounts;
-    }
-    public void setAccounts(Set<Account> accounts) {
-        this.accounts = accounts;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "advisor=" + advisor +
-                ", accounts=" + accounts +
-                '}';
     }
 }

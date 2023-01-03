@@ -50,7 +50,7 @@ public class UserService implements UserServiceLocal, Serializable {
     public Long getNotificationCount(Integer id) {
         var userDao = em.find(User.class, id);
 
-        Query qry = null;
+        Query qry;
         if( userDao instanceof Customer ) {
             qry = em.createQuery("SELECT count(tran) " +
                     "FROM Customer cst, Account act, Transaction tran " +
@@ -130,7 +130,7 @@ public class UserService implements UserServiceLocal, Serializable {
                             "AND " +
                             "( tran.accountFrom.id = :id OR tran.accountTo.id = :id )");
                     Long toValidate = (Long) qry.setParameter("id", account.getId()).getSingleResult();
-                    return new AccountWithInfoDto(account.getId(), name, account.getAccountType().getName(), account.getBalance(), toValidate.intValue());
+                    return new AccountWithInfoDto(account.getId(), name, account.getAccountType().getName(), account.getBalance(), Math.toIntExact(toValidate));
                 }).toList();
     }
 }

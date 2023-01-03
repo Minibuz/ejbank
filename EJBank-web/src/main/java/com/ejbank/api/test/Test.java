@@ -1,8 +1,6 @@
 package com.ejbank.api.test;
 
 import com.ejbank.api.test.payload.PeoplePayload;
-import com.ejbank.service.user.UserServiceLocal;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -17,9 +15,6 @@ import javax.ws.rs.core.MediaType;
 @RequestScoped
 public class Test {
 
-    @EJB
-    private UserServiceLocal userService;
-    
     @GET
     @Path("/ejb")
     public String testEJB() {

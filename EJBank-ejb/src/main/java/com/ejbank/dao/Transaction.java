@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "ejbank_transaction")
@@ -55,38 +54,20 @@ public class Transaction implements Serializable {
     public Integer getId() {
         return id;
     }
-    public void setId(Integer id) {
-        this.id = id;
-    }
     public Account getAccountFrom() {
         return accountFrom;
-    }
-    public void setAccountFrom(Account accountFrom) {
-        this.accountFrom = accountFrom;
     }
     public Account getAccountTo() {
         return accountTo;
     }
-    public void setAccountTo(Account accountTo) {
-        this.accountTo = accountTo;
-    }
     public User getAuthor() {
         return author;
-    }
-    public void setAuthor(User author) {
-        this.author = author;
     }
     public BigDecimal getAmount() {
         return amount;
     }
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
     public String getComment() {
         return comment;
-    }
-    public void setComment(String comment) {
-        this.comment = comment;
     }
     public Boolean getApplied() {
         return applied;
@@ -96,22 +77,5 @@ public class Transaction implements Serializable {
     }
     public Date getDate() {
         return date;
-    }
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", accountIdFrom=" + accountFrom +
-                ", accountIdTo=" + accountTo +
-                ", author=" + author +
-                ", amount=" + amount +
-                ", comment='" + comment + '\'' +
-                ", applied=" + applied +
-                ", date=" + date +
-                '}';
     }
 }
