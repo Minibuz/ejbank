@@ -45,4 +45,7 @@ public class Account implements Serializable {
     public BigDecimal getBalance() {
         return balance;
     }
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 }
