@@ -49,21 +49,10 @@ public class UserService implements UserServiceLocal, Serializable {
     @Override
     public Long getNotificationCount(Integer id) {
         var userDao = em.find(User.class, id);
-
-        Query qry;
         if( userDao instanceof Customer ) {
-            qry = em.createQuery("SELECT count(tran) " +
-                    "FROM Customer cst, Account act, Transaction tran " +
-                    "WHERE " +
-                    "cst.id = :id " +
-                    "AND " +
-                    "tran.applied = false " +
-                    "AND " +
-                    "act.customer.id = cst.id " +
-                    "AND " +
-                    "( tran.accountFrom.id = act.id OR tran.accountTo.id = act.id )");
+            return 0L;
         } else if ( userDao instanceof Advisor ) {
-            qry = em.createQuery("SELECT count(tran) " +
+            Query qry = em.createQuery("SELECT count(tran) " +
                     "FROM Advisor adv, Customer cst, Account act, Transaction tran " +
                     "WHERE " +
                     "adv.id = :id " +
@@ -75,11 +64,11 @@ public class UserService implements UserServiceLocal, Serializable {
                     "act.customer.id = cst.id " +
                     "AND " +
                     "( tran.accountFrom.id = act.id OR tran.accountTo.id = act.id )");
+            qry.setParameter("id", id);
+            return (Long) qry.getSingleResult();
         } else {
             throw new IllegalArgumentException();
         }
-        qry.setParameter("id", id);
-        return (Long) qry.getSingleResult();
     }
 
     @Override
