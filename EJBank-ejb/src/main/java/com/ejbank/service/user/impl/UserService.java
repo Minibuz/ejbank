@@ -107,8 +107,8 @@ public class UserService implements UserServiceLocal, Serializable {
     public AccountsWithInfoDto getAccountsAttached(Integer id) {
         var userDao = em.find(User.class, id);
         List<AccountWithInfoDto> accountsWithUser = new ArrayList<>();
-        if ( userDao instanceof Customer customer ) {
-            accountsWithUser.addAll(getAccountWithInfo(customer));
+        if ( userDao instanceof Customer ) {
+            return new AccountsWithInfoDto(List.of(), null);
         }
         if( userDao instanceof Advisor advisor ) {
             var customers = advisor.getCustomers();
