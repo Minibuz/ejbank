@@ -1,9 +1,6 @@
 package com.ejbank.service.account.impl;
 
-import com.ejbank.dao.Account;
-import com.ejbank.dao.Customer;
-import com.ejbank.dao.Transaction;
-import com.ejbank.dao.User;
+import com.ejbank.dao.*;
 import com.ejbank.dto.account.*;
 import com.ejbank.service.account.AccountServiceLocal;
 
@@ -103,8 +100,9 @@ public class AccountService implements AccountServiceLocal {
     @Override
     public TransactionsDto getTransactions(Integer accountId, Integer offset, Integer userId) {
         var account = em.find(Account.class, accountId);
+        var user = em.find(User.class, userId);
 
-        if(account == null){
+        if(account == null) {
             return new TransactionsDto(0, List.of(), "Error: Account does not exist");
         }
         if(account.getCustomer().getId().intValue() != userId.intValue()) {
@@ -127,7 +125,17 @@ ORDER BY tran.date desc
         var result = (Long) qryTotal.getSingleResult();
 
         return new TransactionsDto(result.intValue(),
-                results.stream().map(trs -> new TransactionDto(
+                results.stream().map(trs -> {
+                    var state = "APPLYED";
+                    if(!trs.getApplied()) {
+                        if( user instanceof Customer ) {
+                            state = "WAITING_APPROVE";
+                        }
+                        if( user instanceof Advisor) {
+                            state = "TO_APPROVE";
+                        }
+                    }
+                    return new TransactionDto(
                         trs.getId(),
                         trs.getDate(),
                         trs.getAccountFrom().getAccountType().getName(),
@@ -136,7 +144,9 @@ ORDER BY tran.date desc
                         trs.getAmount(),
                         trs.getAuthor().getFirstname() + " " + trs.getAuthor().getLastname(),
                         trs.getComment(),
-                        trs.getApplied())).toList(),
+                            state
+                        );
+                }).toList(),
                 null);
     }
 }

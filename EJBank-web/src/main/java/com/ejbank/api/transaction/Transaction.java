@@ -57,7 +57,6 @@ public class Transaction {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/validation")
     public TransactionValidationResponsePayload validationPostRequest(TransactionValidationRequestPayload payload) {
-        // TODO : Error in the exit payload
         var resultDto = transactionService.validateTransaction(payload.getTransaction(), payload.isApprove(), payload.getAuthor());
         return new TransactionValidationResponsePayload(resultDto.result(), resultDto.message());
     }

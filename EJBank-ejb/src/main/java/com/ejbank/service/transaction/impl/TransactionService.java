@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Stateless
 @LocalBean
@@ -44,10 +45,14 @@ public class TransactionService implements TransactionServiceLocal, Serializable
 
         var accountTo = transaction.getAccountFrom();
 
-        transaction.setApplied(true);
         var balanceFrom = accountFrom.getBalance();
         var balanceTo = accountTo.getBalance();
         var amount = transaction.getAmount();
+        if(balanceFrom.subtract(amount).compareTo(new BigDecimal(0)) < 0) {
+            return new ValidatedTransactionDto(false, "", "Error : Balance would be negative");
+        }
+
+        transaction.setApplied(true);
         accountFrom.setBalance(balanceFrom.subtract(amount));
         accountTo.setBalance(balanceTo.add(amount));
 

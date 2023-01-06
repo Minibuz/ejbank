@@ -15,7 +15,7 @@ public class TransactionDto {
     private final String comment;
     private final String state;
 
-    public TransactionDto(Integer id, Date date, String source, String destination, String destinationUser, BigDecimal amount, String author, String comment, boolean state) {
+    public TransactionDto(Integer id, Date date, String source, String destination, String destinationUser, BigDecimal amount, String author, String comment, String state) {
         this.id = id;
         this.date = date.toString();
         this.source = source;
@@ -24,7 +24,7 @@ public class TransactionDto {
         this.amount = amount;
         this.author = author;
         this.comment = comment;
-        this.state = state?"APPLYED":"TO_APPROVE";
+        this.state = state;
     }
 
     public Integer getId() {
