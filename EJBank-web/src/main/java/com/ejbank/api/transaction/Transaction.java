@@ -75,9 +75,6 @@ public class Transaction {
     @GET
     @Path("/list/{account_id}/{offset}/{user_id}")
     public TransactionsDto allTransactionFromUser(@PathParam("account_id") int account_id, @PathParam("offset") int offset , @PathParam("user_id") int user_id) {
-        // TODO : Front payload
-        var result = accountService.getTransactions(account_id, offset, user_id);
-        System.out.println(result);
-        return result;
+        return accountService.getTransactions(account_id, offset, user_id);
     }
 }

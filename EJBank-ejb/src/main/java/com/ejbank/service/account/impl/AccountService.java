@@ -105,7 +105,7 @@ public class AccountService implements AccountServiceLocal {
         if(account == null) {
             return new TransactionsDto(0, List.of(), "Error: Account does not exist");
         }
-        if(account.getCustomer().getId().intValue() != userId.intValue()) {
+        if(account.getCustomer().getId().intValue() != userId.intValue() && account.getCustomer().getAdvisor().getId().intValue() != userId.intValue()) {
             return new TransactionsDto(0 , List.of(), "Error: This user cannot access this account");
         }
 
